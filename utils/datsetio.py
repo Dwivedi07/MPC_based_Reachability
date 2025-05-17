@@ -27,6 +27,7 @@ class MPCDataset(Dataset):
 def dataset_loading(stage=1, prev_model=None, device='cuda'):
     path = f"dataset/stage{stage}/dataset.pkl"
     os.makedirs(os.path.dirname(path), exist_ok=True)
+    return_trajectories = True
 
     if os.path.exists(path):
         with open(path, 'rb') as f:
@@ -36,25 +37,26 @@ def dataset_loading(stage=1, prev_model=None, device='cuda'):
         print(f"Generating dataset and saving to: {path}")
         dynamics = VerticalDroneDynamics(device=device)
 
-        return_trajectories = False
+        
         samples, all_trajs, all_controls = generate_dataset(
                     dynamics=dynamics,
-                    size=300,
+                    size=30,
                     N=10,
                     R=1,
-                    H=200,  # in 1 sec with dt = 0.01 , H = 100, total 4 H of 25 each
+                    H=25,  # in 1 sec with dt = 0.01 , H = 100, total 4 H of 25 each
                     u_std=0.1,
                     device=device,
                     return_trajectories=return_trajectories
                 )
         print(f"Generated {len(samples)} samples.")
 
+        # with open(path, 'wb') as f:
+        #     pickle.dump(samples, f)
+
         if return_trajectories:
-            dynamics.plot_trajectories(all_trajs[0], all_controls[0])
-        
-        with open(path, 'wb') as f:
-            pickle.dump(samples, f)
+            dynamics.plot_trajectories_all(all_trajs, all_controls)
+
 
     dataset = MPCDataset(samples)
-    
+
     return dataset

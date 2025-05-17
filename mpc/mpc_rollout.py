@@ -138,8 +138,8 @@ class VerticalDroneDynamics:
         plt.figure(figsize=(8, 4))
         for i in range(N):
             plt.plot(time_ctrl, control_vals[i], label=f'Control {i+1}', alpha=0.6)
-        plt.axhline(1.0, color='gray', linestyle='--', linewidth=0.5)
-        plt.axhline(-1.0, color='gray', linestyle='--', linewidth=0.5)
+        # plt.axhline(1.0, color='gray', linestyle='--', linewidth=0.5)
+        # plt.axhline(-1.0, color='gray', linestyle='--', linewidth=0.5)
 
         plt.xlabel('Time [s]')
         plt.ylabel('Control u')
@@ -170,8 +170,8 @@ def generate_dataset(dynamics, size, N, R, H, u_std, device, return_trajectories
     x_i = dynamics.sample_state(batch_size=size)  # [size, 3]
     t_i = torch.rand(size, device=device)  # [size]
 
-    all_trajs = None
-    all_controls = None
+    best_trajs = None
+    best_controls = None
 
     for _ in range(R):
         # Expand nominal control: [size, H] -> [size, N, H, 1]
@@ -202,8 +202,8 @@ def generate_dataset(dynamics, size, N, R, H, u_std, device, return_trajectories
         u_nom = u_samples[torch.arange(size), best_n, :, 0]  # update nominal control: [size, H]
 
         if return_trajectories:
-            all_trajs = traj_tensor.detach().cpu()  # [size, N, H+1, 3]
-            all_controls = u_samples.squeeze(-1).detach().cpu()  # [size, N, H
+            best_trajs = traj_tensor[torch.arange(size), best_n]  # [size, H+1, 3]
+            best_controls = u_samples[torch.arange(size), best_n]  # [size, H, 1]
 
     # Convert to CPU and Python-native types for saving
     samples = [
@@ -211,5 +211,5 @@ def generate_dataset(dynamics, size, N, R, H, u_std, device, return_trajectories
         for i in range(size)
     ]
     
-    return samples, all_trajs, all_controls
+    return samples, best_trajs, best_controls
     
