@@ -13,7 +13,8 @@ class VerticalDroneDynamics:
 
         self.state_range_ = torch.tensor([[-4, 4],[-0.5, 3.5]]).to(device)
         self.control_range_ =torch.tensor([[-self.input_magnitude_max, self.input_magnitude_max]]).to(device)
-        self.nominal_control_init = torch.ones(1)*self.g/self.input_multiplier
+        self.nominal_control_init = torch.ones(1, device = device)*self.g/self.input_multiplier
+
 
     def sample_state(self, batch_size=1):
         z = torch.empty(batch_size, device=self.device).uniform_(*self.state_range_[1])
@@ -108,7 +109,10 @@ class VerticalDroneDynamics:
         """
         if dt is None:
             dt = self.dt
-
+        ### for second algo
+        trajs = trajs.squeeze(1)
+        controls = controls.squeeze(1)
+        ###
         N, H_plus_1, _ = trajs.shape
         H = H_plus_1 - 1
         time_traj = torch.arange(H_plus_1) * dt
@@ -148,68 +152,78 @@ class VerticalDroneDynamics:
         plt.tight_layout()
         plt.show()
 
-# --------------------------------------------------------
+#=---------------------------------------------
 def generate_dataset(dynamics, size, N, R, H, u_std, device, return_trajectories=False):
     """
     Parallelized version of generate_dataset using GPU tensor ops.
     Args:
         dynamics: instance of dynamics class (must support .sample_state, .step, .compute_l)
-        size: Number of data points
+        size: Number of data points |D_MPC|
         N: Number of hallucinated trajectories
-        R: Number of sampling rounds
+        R: Number of sampling rounds for one sampled data points corresponding to one initial state
         H: Horizon length
         u_std: Gaussian noise std
+        device: CUDA or CPU device
+        return_trajectories: If True, returns raw trajectories and control inputs
+
     Returns:
-        List of (t_i, x_i, V̂(t_i, x_i))
-        all_trajs: Tensor of shape [size, N, H+1, 3] (if return_trajectories=True)
-        all_controls: Tensor of shape [size, N, H] (if return_trajectories=True)
+        samples: List of tuples (t_i, x_i, V̂(t_i, x_i))
+        all_trajs: Tensor [size, R, H+1, 3] (if return_trajectories=True)
+        all_controls: Tensor [size, R, H]   (if return_trajectories=True)
     """
-    u_nom = dynamics.nominal_control_init.expand(size, H)  # [size, H]
-    
-    # Sample all initial states and times at once
-    x_i = dynamics.sample_state(batch_size=size)  # [size, 3]
-    t_i = torch.rand(size, device=device)  # [size]
+    samples = []
+    all_trajs = []
+    all_controls = []
 
-    best_trajs = None
-    best_controls = None
+    u_nom_init = dynamics.nominal_control_init.to(device).expand(H)  # [H]
 
-    for _ in range(R):
-        # Expand nominal control: [size, H] -> [size, N, H, 1]
-        u_nom_expanded = u_nom[:, None, :, None].expand(size, N, H, 1)
-        noise = u_std * torch.randn(size, N, H, 1, device=device)
-        u_samples = torch.clamp(u_nom_expanded + noise, -1.0, 1.0)  # [size, N, H, 1]
+    for n in range(size):
+        x_i = dynamics.sample_state(batch_size=1).to(device)  # [1, 3]
+        t_i = torch.round(torch.rand(1, device=device) * 25) / 100  # [1] in [0, 0.25] with 2 decimal places
 
-        # Repeat states for N hallucinated trajectories
-        xi_n = x_i[:, None, :].expand(size, N, 3)  # [size, N, 3]
-        traj = [xi_n]  # will become [size, N, H+1, 3]
+        u_nom = u_nom_init.clone()
+        best_V_hat = None
 
-        for h in range(H): # unroll over horizon
-            u_h = u_samples[:, :, h, :]  # [size, N, 1]
-            xi_n = dynamics.step(xi_n.reshape(-1, 3), u_h.reshape(-1, 1))  # [size*N, 3]
-            xi_n = xi_n.view(size, N, 3)
-            traj.append(xi_n)
+        traj_r_list = []
+        control_r_list = []
 
-        # Stack into trajectory tensor: [size, N, H+1, 3]
-        traj_tensor = torch.stack(traj, dim=2)
+        for _ in range(R):
+            u_nom_expanded = u_nom[None, :].expand(N, H)  # [N, H]
+            noise = u_std * torch.randn(N, H, device=device)
+            u_samples = torch.clamp(u_nom_expanded + noise, -1.0, 1.0)  # [N, H]
 
-        # Compute rewards and min cost per trajectory
-        rewards = dynamics.compute_l(traj_tensor.view(-1, H+1, 3))  # [size*N, H+1]
-        rewards = rewards.view(size, N, H+1)
-        J_n = rewards.min(dim=2).values  # [size, N]
+            xi_n = x_i.expand(N, 3)  # [N, 3]
+            traj = [xi_n]
 
-        best_n = torch.argmax(J_n, dim=1)  # [size]
-        V_hat = J_n[torch.arange(size), best_n]  # [size]
-        u_nom = u_samples[torch.arange(size), best_n, :, 0]  # update nominal control: [size, H]
+            for h in range(H):
+                u_h = u_samples[:, h]  # [N]
+                xi_n = dynamics.step(xi_n, u_h)
+                xi_n = xi_n.view(N, 3)
+                traj.append(xi_n)
 
-        if return_trajectories:
-            best_trajs = traj_tensor[torch.arange(size), best_n]  # [size, H+1, 3]
-            best_controls = u_samples[torch.arange(size), best_n]  # [size, H, 1]
+            traj_tensor = torch.stack(traj, dim=1)  # [N, H+1, 3]
+            rewards = dynamics.compute_l(traj_tensor)  # [N, H+1]
+            J_n = rewards.min(dim=1).values  # [N]
+            best_n = torch.argmax(J_n)  # scalar
+            V_hat = J_n[best_n]
 
-    # Convert to CPU and Python-native types for saving
-    samples = [
-        (t_i[i].item(), x_i[i].cpu().numpy(), V_hat[i].item())
-        for i in range(size)
-    ]
-    
-    return samples, best_trajs, best_controls
-    
+            # Update nominal control and store best trajectory + control
+            u_nom = u_samples[best_n]
+            best_traj = traj_tensor[best_n]  # [H+1, 3]
+            best_control = u_samples[best_n]  # [H]
+
+            traj_r_list.append(best_traj.cpu())
+            control_r_list.append(best_control.cpu())
+
+            if best_V_hat is None or V_hat > best_V_hat:
+                best_V_hat = V_hat
+        
+        samples.append((t_i.item(), x_i.squeeze(0).cpu().numpy(), best_V_hat.item()))
+        all_trajs.append(torch.stack(traj_r_list))     # shape [R, H+1, 3]
+        all_controls.append(torch.stack(control_r_list))  # shape [R, H]
+
+    if return_trajectories:
+        
+        return samples, torch.stack(all_trajs), torch.stack(all_controls)
+    else:
+        return samples
