@@ -42,10 +42,10 @@ def dataset_loading(dynamics, stage=1, prev_models=None, device='cuda'):
         '''
         samples, all_trajs, all_controls = generate_dataset(
                     dynamics=dynamics,
-                    size=800,
+                    size=300,
                     N=100,
                     R=20,
-                    H=40,  
+                    H=20,  
                     u_std=0.1,
                     stage= stage,
                     device=device,

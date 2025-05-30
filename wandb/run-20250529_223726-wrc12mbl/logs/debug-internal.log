@@ -1,0 +1,15 @@
+{"time":"2025-05-29T22:37:26.897354174-07:00","level":"INFO","msg":"stream: starting","core version":"0.19.11","symlink path":"/home/idveiwd-07/AA276/MPC_based_Reachability/wandb/run-20250529_223726-wrc12mbl/logs/debug-core.log"}
+{"time":"2025-05-29T22:37:27.100850668-07:00","level":"INFO","msg":"created new stream","id":"wrc12mbl"}
+{"time":"2025-05-29T22:37:27.100908804-07:00","level":"INFO","msg":"stream: started","id":"wrc12mbl"}
+{"time":"2025-05-29T22:37:27.10100677-07:00","level":"INFO","msg":"writer: Do: started","stream_id":"wrc12mbl"}
+{"time":"2025-05-29T22:37:27.101010251-07:00","level":"INFO","msg":"sender: started","stream_id":"wrc12mbl"}
+{"time":"2025-05-29T22:37:27.101003836-07:00","level":"INFO","msg":"handler: started","stream_id":"wrc12mbl"}
+{"time":"2025-05-29T22:37:27.245869602-07:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-05-29T22:37:40.376489598-07:00","level":"INFO","msg":"stream: closing","id":"wrc12mbl"}
+{"time":"2025-05-29T22:37:40.376542975-07:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-05-29T22:37:40.376603252-07:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-05-29T22:37:40.845394473-07:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-05-29T22:37:40.98766861-07:00","level":"INFO","msg":"handler: closed","stream_id":"wrc12mbl"}
+{"time":"2025-05-29T22:37:40.987741487-07:00","level":"INFO","msg":"sender: closed","stream_id":"wrc12mbl"}
+{"time":"2025-05-29T22:37:40.987733648-07:00","level":"INFO","msg":"writer: Close: closed","stream_id":"wrc12mbl"}
+{"time":"2025-05-29T22:37:40.987814053-07:00","level":"INFO","msg":"stream: closed","id":"wrc12mbl"}

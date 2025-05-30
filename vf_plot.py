@@ -35,7 +35,7 @@ for stage in range(1, num_stages):  # stages 1 to (current-1)
     model = SingleBVPNet(
         in_features=4,
         out_features=1,
-        hidden_features=256,
+        hidden_features=512,
         num_hidden_layers=3,
         type='sine',
         mode='mlp'

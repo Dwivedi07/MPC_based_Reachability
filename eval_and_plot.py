@@ -29,7 +29,7 @@ input_tensor = torch.tensor(np.hstack([input_points, K_array, T_array]), dtype=t
 model = SingleBVPNet(
     in_features=4,
     out_features=1,
-    hidden_features=256,
+    hidden_features=512,
     num_hidden_layers=3,
     type='sine',
     mode='mlp'

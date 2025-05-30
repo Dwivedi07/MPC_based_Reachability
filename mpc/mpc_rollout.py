@@ -63,20 +63,15 @@ class VerticalDroneDynamics:
         4: [T-4H, T-3H]
         '''
         if stage == 1:
-            t_i = torch.round((0.9 + torch.rand(1, device=device) * 0.3) * 100) / 100   # t_i in [0.9, 1.2] with 2 decimal places
-            T_f = torch.tensor([1.2])
+            t_i = torch.round((0.9 + torch.rand(1, device=device) * self.horizon) * 100) / 100   # t_i in [0.9, 1.2] with 2 decimal places
         elif stage == 2:
-            t_i = torch.round((0.6 + torch.rand(1, device=device) * 0.3) * 100) / 100   # t_i in [0.6, 0.9] with 2 decimal places
-            T_f = torch.tensor([0.9])
+            t_i = torch.round((0.6 + torch.rand(1, device=device) * self.horizon) * 100) / 100   # t_i in [0.6, 0.9] with 2 decimal places
         elif stage == 3:
-            t_i = torch.round((0.3 + torch.rand(1, device=device) * 0.3) * 100) / 100   # t_i in [0.3, 0.6] with 2 decimal places
-            T_f = torch.tensor([0.6])
+            t_i = torch.round((0.3 + torch.rand(1, device=device) * self.horizon) * 100) / 100   # t_i in [0.3, 0.6] with 2 decimal places
         else:
-            t_i = torch.round((0.0 + torch.rand(1, device=device) * 0.3) * 100) / 100   # t_i in [0.0, 0.3] with 2 decimal places
-            T_f = torch.tensor([0.3]) # prev terminal 
-
+            t_i = torch.round((0.0 + torch.rand(1, device=device) * self.horizon) * 100) / 100   # t_i in [0.0, 0.3] with 2 decimal places
         
-        return (t_i, T_f.to(device))
+        return t_i
 
 
     def plot_trajectories_all(self, trajs, controls, dt=None):
@@ -195,7 +190,7 @@ def generate_dataset(dynamics, size, N, R, H, u_std, stage, device, prev_stage_m
 
     for n in range(size):
         x_i = dynamics.sample_state(batch_size=1).to(device)  # [1, 3]
-        t_i, T_f = dynamics.sample_time(stage, device)  #  [1] [1]
+        t_i = dynamics.sample_time(stage, device)  #  [1]
 
         u_nom = u_nom_init.clone()
         best_V_hat = None
@@ -244,18 +239,29 @@ def generate_dataset(dynamics, size, N, R, H, u_std, stage, device, prev_stage_m
             best_n = torch.argmax(J_n)  # scalar
             V_hat = J_n[best_n]
 
+            if best_V_hat is None or V_hat > best_V_hat:
+                best_V_hat = V_hat
+
             # Update nominal control and store best trajectory + control
             u_nom = u_samples[best_n]
             best_traj = traj_tensor[best_n]  # [H+1, 3]
             best_control = u_samples[best_n]  # [H]
+            
+            # BOOTSTRAP: Add intermediate points along the best trajectory to dataset
+            # We compute: V̂(t + h·dt, x_h) = min(l(x_h:)), where h in [0, H]
+            l_vals = dynamics.compute_l(best_traj)  # [H+1]
+            running_min = torch.minimum(torch.cummin(l_vals.flip(0), dim=0).values.flip(0), best_V_hat)  # [H+1]
+
+            for h in range(H+1):
+                t_h = float(t_i + h * dynamics.dt)
+                x_h = best_traj[h].cpu().numpy()
+                V_h = running_min[h].item()
+                samples.append((t_h, x_h, V_h))
 
             traj_r_list.append(best_traj.cpu())
             control_r_list.append(best_control.cpu())
-
-            if best_V_hat is None or V_hat > best_V_hat:
-                best_V_hat = V_hat
         
-        samples.append((float(t_i), x_i.squeeze(0).cpu().numpy(), best_V_hat.item()))
+        # samples.append((float(t_i), x_i.squeeze(0).cpu().numpy(), best_V_hat.item()))
         all_trajs.append(torch.stack(traj_r_list))     # shape [R, H+1, 3]
         all_controls.append(torch.stack(control_r_list))  # shape [R, H]
 
