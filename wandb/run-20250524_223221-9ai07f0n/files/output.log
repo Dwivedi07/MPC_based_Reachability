@@ -1,0 +1,8 @@
+/home/idveiwd-07/miniforge3/envs/myenv/lib/python3.10/site-packages/torch/nn/modules/loss.py:535: UserWarning: Using a target size (torch.Size([64, 1])) that is different to the input size (torch.Size([64, 64])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+  return F.mse_loss(input, target, reduction=self.reduction)
+torch.Size([64, 1]) torch.Size([64, 1])
+torch.Size([16, 1]) torch.Size([16, 1])
+Traceback (most recent call last):
+  File "/home/idveiwd-07/AA276/MPC_based_Reachability/main_train.py", line 137, in <module>
+    V_pred = l_x + (T_f - t)*O_pred
+RuntimeError: The size of tensor a (64) must match the size of tensor b (16) at non-singleton dimension 0

@@ -24,7 +24,7 @@ class MPCDataset(Dataset):
         }
 
 # ----------------------------
-def dataset_loading(stage=1, prev_model=None, device='cuda'):
+def dataset_loading(dynamics, stage=1, prev_models=None, device='cuda'):
     path = f"dataset/stage{stage}/dataset.pkl"
     os.makedirs(os.path.dirname(path), exist_ok=True)
     return_trajectories = True
@@ -34,27 +34,31 @@ def dataset_loading(stage=1, prev_model=None, device='cuda'):
             print(f"Loading dataset from: {path}")
             samples = pickle.load(f)
     else:
-        print(f"Generating dataset and saving to: {path}")
-        dynamics = VerticalDroneDynamics(device=device)
-
-        
+        print(f"Generating dataset from stage {stage} and saving to: {path}")
+        '''
+        IN paper H_R = 0.2 sec with dt = 0.02 sec so each rollout 100 steps
+        safe set converges in 1.2 second
+        we will use 0.3 as horizon length for each stage with H = 100 steps with dt 0.03
+        '''
         samples, all_trajs, all_controls = generate_dataset(
                     dynamics=dynamics,
-                    size=500,
+                    size=800,
                     N=100,
-                    R=100,
-                    H=25,  # in 1 sec with dt = 0.01 , H = 100, total 4 H of 25 each
+                    R=20,
+                    H=40,  
                     u_std=0.1,
+                    stage= stage,
                     device=device,
+                    prev_stage_models= prev_models,
                     return_trajectories=return_trajectories
                 )
         print(f"Generated {len(samples)} samples.")
 
-        # with open(path, 'wb') as f:
-        #     pickle.dump(samples, f)
+        with open(path, 'wb') as f:
+            pickle.dump(samples, f)
 
-        if return_trajectories:
-            dynamics.plot_trajectories_all(all_trajs, all_controls)
+        # if return_trajectories:
+        #     dynamics.plot_trajectories_all(all_trajs[-1], all_controls[-1])
 
 
     dataset = MPCDataset(samples)

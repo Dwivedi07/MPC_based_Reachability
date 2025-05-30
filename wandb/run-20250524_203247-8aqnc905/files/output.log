@@ -1,0 +1,12 @@
+No checkpoitn: Training from scratch.
+[34m[1mwandb[0m: wandb.init() called while a run is active and reinit is set to 'default', so returning the previous run.
+Traceback (most recent call last):
+  File "/home/idveiwd-07/AA276/MPC_based_Reachability/main.py", line 105, in <module>
+    V_pred = model(input_tensor)  # [batch_size, 1]
+  File "/home/idveiwd-07/miniforge3/envs/myenv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1532, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/idveiwd-07/miniforge3/envs/myenv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1541, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/idveiwd-07/AA276/MPC_based_Reachability/utils/model.py", line 122, in forward
+    coords_org = model_input['coords'].clone(
+IndexError: too many indices for tensor of dimension 2

@@ -5,13 +5,20 @@ import numpy as np
 class VerticalDroneDynamics:
     def __init__(self, device):
         self.g = 9.8       # g
-        self.dt = 0.01
+        self.dt = 0.03 # each stage horizon 0.3 seconds long with 100 steps
+        self.horizon= 0.3
         self.device = device
         self.input_multiplier = 12.0   # K
         self.input_magnitude_max = 1.0     # u_max
         self.K_range = torch.tensor([0.0, 12.0]).to(device)  # K
+        self.T_terminals = {
+                            1: torch.tensor([1.2]),
+                            2: torch.tensor([0.9]),
+                            3: torch.tensor([0.6]),
+                            4: torch.tensor([0.3]),
+                        }
 
-        self.state_range_ = torch.tensor([[-4, 4],[-0.5, 3.5]]).to(device)
+        self.state_range_ = torch.tensor([[-4, 4],[-0.5, 3.5]]).to(device) # not inside failure set
         self.control_range_ =torch.tensor([[-self.input_magnitude_max, self.input_magnitude_max]]).to(device)
         self.nominal_control_init = torch.ones(1, device = device)*self.g/self.input_multiplier
 
@@ -40,63 +47,37 @@ class VerticalDroneDynamics:
     def compute_l(self, traj):
         """
         Args:
-            traj: Tensor of shape [N, H+1, 3]
+            traj: Tensor of shape [N, H+1, 3] pr [N, 3]
         Returns:
             cost: Tensor of shape [N, H+1] - reward at each step
         """
         z = traj[..., 0]
         return -torch.abs(z - 1.5) + 1.5
     
-    def plot_trajectories(self, traj_batch, u_batch, max_plot=5):
-        """
-        traj_batch: [B, H+1, 3]
-        u_batch: [B, H]
-        Plots z, vz, K and u with failure set highlighted.
-        """
-        B, H_plus_1, _ = traj_batch.shape
-        H = H_plus_1 - 1
-        t_traj = torch.linspace(0, H * self.dt, H + 1)
-        t_ctrl = torch.linspace(0, (H - 1) * self.dt, H)
+    def sample_time(self, stage, device):
+        '''
+        Check the stage and pick the sample accordingly from the horizon
+        1: [T-H, T]
+        2: [T-2H, T-H]
+        3: [T-3H, T-2H]
+        4: [T-4H, T-3H]
+        '''
+        if stage == 1:
+            t_i = torch.round((0.9 + torch.rand(1, device=device) * 0.3) * 100) / 100   # t_i in [0.9, 1.2] with 2 decimal places
+            T_f = torch.tensor([1.2])
+        elif stage == 2:
+            t_i = torch.round((0.6 + torch.rand(1, device=device) * 0.3) * 100) / 100   # t_i in [0.6, 0.9] with 2 decimal places
+            T_f = torch.tensor([0.9])
+        elif stage == 3:
+            t_i = torch.round((0.3 + torch.rand(1, device=device) * 0.3) * 100) / 100   # t_i in [0.3, 0.6] with 2 decimal places
+            T_f = torch.tensor([0.6])
+        else:
+            t_i = torch.round((0.0 + torch.rand(1, device=device) * 0.3) * 100) / 100   # t_i in [0.0, 0.3] with 2 decimal places
+            T_f = torch.tensor([0.3]) # prev terminal 
 
-        B_plot = min(max_plot, B)
-        fig, axs = plt.subplots(B_plot, 2, figsize=(12, 3.5 * B_plot))
+        
+        return (t_i, T_f.to(device))
 
-        if B_plot == 1:
-            axs = axs[None, :]  # Ensure 2D indexing for single row
-
-        for i in range(B_plot):
-            z = traj_batch[i, :, 0].cpu()
-            vz = traj_batch[i, :, 1].cpu()
-            K = traj_batch[i, :, 2].cpu()
-            u = u_batch[i].cpu()
-
-            failure_mask = (z < 0) | (z > 3)
-
-            # Plot state trajectory
-            axs[i, 0].plot(t_traj, z, label='z (height)', color='blue')
-            axs[i, 0].plot(t_traj, vz, label='vz (velocity)', color='green')
-
-            axs[i, 0].axhspan(-1, 0, facecolor='red', alpha=0.2, label='Failure Set')
-            axs[i, 0].axhspan(3, 5, facecolor='red', alpha=0.2)
-            axs[i, 0].scatter(t_traj[failure_mask], z[failure_mask], color='red', s=25, label='Failure Points')
-
-            axs[i, 0].set_title(f"Trajectory {i+1} - State")
-            axs[i, 0].set_xlabel("Time [s]")
-            axs[i, 0].set_ylabel("Value")
-            axs[i, 0].legend()
-            axs[i, 0].grid(True)
-
-            # Plot control
-            axs[i, 1].plot(t_ctrl, u, label='u (control)', color='purple')
-            axs[i, 1].set_title(f"Trajectory {i+1} - Control -Thrust gain K={K[0].item():.2f}")
-            axs[i, 1].set_xlabel("Time [s]")
-            axs[i, 1].set_ylabel("u")
-            axs[i, 1].legend()
-            axs[i, 1].grid(True)
-
-        plt.tight_layout()
-        plt.show()
-    
 
     def plot_trajectories_all(self, trajs, controls, dt=None):
         """
@@ -110,8 +91,9 @@ class VerticalDroneDynamics:
         if dt is None:
             dt = self.dt
         ### for second algo
-        trajs = trajs.squeeze(1)
-        controls = controls.squeeze(1)
+        # print(trajs.shape, controls.shape)
+        # trajs = trajs.squeeze(1)
+        # controls = controls.squeeze(1)
         ###
         N, H_plus_1, _ = trajs.shape
         H = H_plus_1 - 1
@@ -136,6 +118,7 @@ class VerticalDroneDynamics:
         plt.title('Drone Altitude Trajectories')
         plt.grid(True)
         plt.tight_layout()
+        plt.savefig('drone_altitude.png')
         plt.show()
 
         # --- Plot controls ---
@@ -150,10 +133,42 @@ class VerticalDroneDynamics:
         plt.title('Control Sequences')
         plt.grid(True)
         plt.tight_layout()
+        plt.savefig('drone_controls.png')
         plt.show()
+#-----------------------------------------------
+def compute_recursive_value(x, t, dynamics, models):
+    """
+    Recursively computes the predicted value function at (x, T_stage) using trained models.
+    - x: [batch_size, 3]
+    - T_stage: [batch_size, 1]
+    - models: list of trained models from stage 1 to current-1
+    - stage
+    
+    V_pred_current(x_sample,t_smaple) = V_pred_prev[x_sample, T_terminal_current] + (T_terminal_current - t)*O_pred_2(x_sample,t_smaple)
+    V_pred_prev[x_sample, T_terminal_current] = l_x + (T_terminal_prev - T_terminal)*O_pred_prev[x_sample, T_terminal_current]
+    """
+    l_x = dynamics.compute_l(x)
+    T_terminals = dynamics.T_terminals
+    V = l_x
+    if V.dim() == 1:
+        V = V.unsqueeze(1)
+    T_i = t
 
+    for i, model in enumerate(models):  # stages 1 to current-1
+        stage_i = i + 1
+        T_ip1 = T_terminals[stage_i+1].to(x.device).expand(x.shape[0], 1)
+        input_tensor = torch.cat([x, T_ip1], dim=1) # O_thistage eval at terminal of prev state
+        with torch.no_grad():
+            O_pred = model(input_tensor)
+        
+        delta_T = (T_i - T_ip1)  # [N, 1]
+        V = V + delta_T * O_pred  # all [N, 1]
+        T_i = T_ip1
+    
+    return V  # shape: [batch_size, 1]
 #=---------------------------------------------
-def generate_dataset(dynamics, size, N, R, H, u_std, device, return_trajectories=False):
+def generate_dataset(dynamics, size, N, R, H, u_std, stage, device, prev_stage_models = None, 
+                    return_trajectories=False):
     """
     Parallelized version of generate_dataset using GPU tensor ops.
     Args:
@@ -164,6 +179,7 @@ def generate_dataset(dynamics, size, N, R, H, u_std, device, return_trajectories
         H: Horizon length
         u_std: Gaussian noise std
         device: CUDA or CPU device
+        prev_stage_models : previous stage models
         return_trajectories: If True, returns raw trajectories and control inputs
 
     Returns:
@@ -179,7 +195,7 @@ def generate_dataset(dynamics, size, N, R, H, u_std, device, return_trajectories
 
     for n in range(size):
         x_i = dynamics.sample_state(batch_size=1).to(device)  # [1, 3]
-        t_i = torch.round(torch.rand(1, device=device) * 25) / 100  # [1] in [0, 0.25] with 2 decimal places
+        t_i, T_f = dynamics.sample_time(stage, device)  #  [1] [1]
 
         u_nom = u_nom_init.clone()
         best_V_hat = None
@@ -200,10 +216,31 @@ def generate_dataset(dynamics, size, N, R, H, u_std, device, return_trajectories
                 xi_n = dynamics.step(xi_n, u_h)
                 xi_n = xi_n.view(N, 3)
                 traj.append(xi_n)
-
+            
             traj_tensor = torch.stack(traj, dim=1)  # [N, H+1, 3]
             rewards = dynamics.compute_l(traj_tensor)  # [N, H+1]
-            J_n = rewards.min(dim=1).values  # [N]
+            min_l_x_h = rewards.min(dim=1).values  # [N]
+
+            # we will take min between the l_x and prev_model_val_fnc
+            if stage != 1:
+                ''' 
+                evaluate the value-fuction from just previous stage model evaluated 
+                at terminal state and end of this stage's horizon
+                V(x,t) = min(min{t}(l(x(t))), V_prev(x_term,t_term))
+                As for stage i>1:
+                    t \in [T - iH, T - (i-1)H)]
+                    so sampled start state t >= T - iH
+                    so t + dt*H = t + 0.3 = t + H \in [t - (i-1)H, t - (i-2)H]
+                    so valid call of O_theta
+                '''
+                x_terminal = traj_tensor[:, -1, :]  # [N, 3]
+                t_terminal = t_i.expand(N, 1) + H * dynamics.dt  # [N, 1]
+                # recursive call
+                V_at_terminal_state = compute_recursive_value(x_terminal, t_terminal, dynamics, prev_stage_models) 
+                J_n = torch.minimum(V_at_terminal_state.reshape(-1), min_l_x_h)  # [N] : min( min(l), V_theta)
+            else:
+                J_n = min_l_x_h  # fallback if no previous model
+
             best_n = torch.argmax(J_n)  # scalar
             V_hat = J_n[best_n]
 
@@ -218,12 +255,11 @@ def generate_dataset(dynamics, size, N, R, H, u_std, device, return_trajectories
             if best_V_hat is None or V_hat > best_V_hat:
                 best_V_hat = V_hat
         
-        samples.append((t_i.item(), x_i.squeeze(0).cpu().numpy(), best_V_hat.item()))
+        samples.append((float(t_i), x_i.squeeze(0).cpu().numpy(), best_V_hat.item()))
         all_trajs.append(torch.stack(traj_r_list))     # shape [R, H+1, 3]
         all_controls.append(torch.stack(control_r_list))  # shape [R, H]
 
     if return_trajectories:
-        
         return samples, torch.stack(all_trajs), torch.stack(all_controls)
     else:
         return samples
