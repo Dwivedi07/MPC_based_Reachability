@@ -80,7 +80,7 @@ for stage in range(1, NUM_STAGES + 1):
     '''
     Training the model
     '''
-    num_epochs = 100000
+    num_epochs = 10000
     save_dir = f"model_checkpoints"
 
     # Path to saved checkpoint

@@ -19,14 +19,16 @@ class BatchLinear(nn.Linear):
 
 
 class FCBlock(nn.Module):
-    def __init__(self, in_features, out_features, num_hidden_layers, hidden_features):
+    def __init__(self, in_features, out_features, num_hidden_layers, hidden_features, dropout_prob=0.2):
         super().__init__()
         layers = []
 
         # First layer
         layers.append(nn.Sequential(
             BatchLinear(in_features, hidden_features),
-            Sine()
+            Sine(),
+            nn.Dropout(dropout_prob)
+
         ))
 
         # Hidden layers
@@ -49,10 +51,11 @@ class FCBlock(nn.Module):
 
 class SingleBVPNet(nn.Module):
     def __init__(self,
-                 in_features=2,      # typically (x, t) or (x1, x2, ..., t)
+                 in_features=4,      # typically (x, t) or (x1, x2, ..., t)
                  out_features=1,     # V(x, t)
-                 hidden_features=256,
+                 hidden_features=512,
                  num_hidden_layers=3,
+                 dropout_prob=0.2,
                  mode='mlp',         # future support
                  type='sine'):       # future support
         super().__init__()
