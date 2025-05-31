@@ -30,9 +30,7 @@ model = SingleBVPNet(
     in_features=4,
     out_features=1,
     hidden_features=512,
-    num_hidden_layers=3,
-    type='sine',
-    mode='mlp'
+    num_hidden_layers=3
 ).to(device)
 
 model.load_state_dict(torch.load(checkpoint_path, map_location=device))

@@ -1,6 +1,8 @@
 from utils.datsetio import dataset_loading
 from utils.model import SingleBVPNet
-from mpc.mpc_rollout import VerticalDroneDynamics, compute_recursive_value
+from utils.util import compute_recursive_value
+from mpc.mpc_rollout import VerticalDroneDynamics
+
 import torch
 import torch.nn as nn
 import torch.optim as optim
@@ -23,7 +25,7 @@ This is the main script that orchestrates the training process.
 3. It uses the trained model for the next stage.
 '''
 
-NUM_STAGES = 1
+NUM_STAGES = 4
 prev_models = []
 train_from_checkpoint = False
 train_from_begining = True
@@ -59,7 +61,7 @@ for stage in range(1, NUM_STAGES + 1):
     val_size = len(dataset) - train_size
     train_dataset, val_dataset = torch.utils.data.random_split(dataset, [train_size, val_size])
     train_dataloader = DataLoader(train_dataset, batch_size=32, shuffle=True)
-    val_dataloader = DataLoader(val_dataset, batch_size=16, shuffle=False)
+    val_dataloader = DataLoader(val_dataset, batch_size=32, shuffle=False)
 
     # print some samples of train dataset
     # for i in range(10):
@@ -71,16 +73,14 @@ for stage in range(1, NUM_STAGES + 1):
     with input as the state and time and K
     '''
     model = SingleBVPNet(out_features=1,  # V(state, t)
-                        type='sine',
                         in_features=4,  # z, vz, k, t
-                        mode='mlp',
                         hidden_features=512, # 256 first set of training I did
                         num_hidden_layers=3).to(device)
     
     '''
     Training the model
     '''
-    num_epochs = 10000
+    num_epochs = 200
     save_dir = f"model_checkpoints"
 
     # Path to saved checkpoint
@@ -115,7 +115,7 @@ for stage in range(1, NUM_STAGES + 1):
         optimizer = optim.Adam(model.parameters(), lr=2e-5)
         best_val_loss = float("inf")
         
-        for epoch in range(num_epochs):
+        for epoch in tqdm(range(num_epochs), desc="Epochs", ncols=80, unit="epoch"):
             model.train()
             train_loss = 0.0
 
@@ -141,7 +141,8 @@ for stage in range(1, NUM_STAGES + 1):
                                                     T_stage,
                                                     dynamics, 
                                                     prev_models)
-                    V_pred = V_prev + (T_stage.reshape(-1) - t.reshape(-1)) * O_pred
+                    delta_T = (T_stage - t)   # [N, 1]
+                    V_pred = V_prev + delta_T * O_pred 
                 
                 assert V_pred.shape[1] == 1, f"V_pred has shape {V_pred.shape}, expected (*, 1)"
                 loss = criterion(V_pred, V_mpc)
@@ -178,7 +179,8 @@ for stage in range(1, NUM_STAGES + 1):
                                                         T_stage, # in batch format
                                                         dynamics, 
                                                         prev_models)
-                        V_pred = V_prev + (T_stage.reshape(-1) - t.reshape(-1)) * O_pred
+                        delta_T = (T_stage - t)   # [N, 1]
+                        V_pred = V_prev + delta_T * O_pred 
 
                     assert V_pred.shape[1] == 1, f"V_pred has shape {V_pred.shape}, expected (*, 1)"
                     loss = criterion(V_pred, V_mpc)
@@ -193,8 +195,8 @@ for stage in range(1, NUM_STAGES + 1):
                     "val_loss": val_loss,
                     "epoch": epoch
                 })
-            if epoch%10000 == 0:
-                print(f"Epoch [{epoch+1}/{num_epochs}] - Train Loss: {train_loss:.4f}, Val Loss: {val_loss:.4f}")
+            # if epoch%5 == 0:
+            #     print(f"Epoch [{epoch+1}/{num_epochs}] - Train Loss: {train_loss:.4f}, Val Loss: {val_loss:.4f}")
 
             ###### Save best model
             if val_loss < best_val_loss:

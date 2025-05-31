@@ -1,16 +1,20 @@
 import torch
 import numpy as np
 import matplotlib.pyplot as plt
-from utils.model import SingleBVPNet
 import matplotlib.lines as mlines
-from mpc.mpc_rollout import VerticalDroneDynamics, compute_recursive_value
+
+from utils.model import SingleBVPNet
+from mpc.mpc_rollout import VerticalDroneDynamics 
+from utils.util import compute_recursive_value
+
+
 # ----------------------------
 # Settings
 # ----------------------------
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-T = 0.0 # Final time
+T = 0.6 # Final time
 K = 12.0  # Fixed gain
-num_stages = 4
+num_stages = 2
 dynamics = VerticalDroneDynamics(device=device)
 # ----------------------------
 # Grid setup
@@ -36,9 +40,7 @@ for stage in range(1, num_stages):  # stages 1 to (current-1)
         in_features=4,
         out_features=1,
         hidden_features=512,
-        num_hidden_layers=3,
-        type='sine',
-        mode='mlp'
+        num_hidden_layers=3
     ).to(device)
     model.load_state_dict(torch.load(path, map_location=device))
     model.eval()
@@ -70,5 +72,5 @@ fail_proxy = mlines.Line2D([], [], color='red', linestyle='--', label='Failure s
 plt.legend(handles=[safe_proxy, fail_proxy], loc='upper right')
 
 plt.tight_layout()
-plt.savefig('stage1.png')
+plt.savefig('stage_full.png')
 plt.show()

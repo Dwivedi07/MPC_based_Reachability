@@ -6,7 +6,8 @@ import torch
 from torch.utils.data import Dataset, DataLoader
 import matplotlib.pyplot as plt
 
-from mpc.mpc_rollout import VerticalDroneDynamics, generate_dataset
+from mpc.mpc_rollout import VerticalDroneDynamics
+from utils.util import  generate_dataset
 
 class MPCDataset(Dataset):
     def __init__(self, samples):
@@ -42,10 +43,10 @@ def dataset_loading(dynamics, stage=1, prev_models=None, device='cuda'):
         '''
         samples, all_trajs, all_controls = generate_dataset(
                     dynamics=dynamics,
-                    size=300,
+                    size=600,
                     N=100,
                     R=20,
-                    H=100,  
+                    H=30,  
                     u_std=0.1,
                     stage= stage,
                     device=device,
@@ -57,8 +58,11 @@ def dataset_loading(dynamics, stage=1, prev_models=None, device='cuda'):
         with open(path, 'wb') as f:
             pickle.dump(samples, f)
 
-        # if return_trajectories:
-        #     dynamics.plot_trajectories_all(all_trajs[-1], all_controls[-1])
+        if return_trajectories:
+            r = 0  # index of rollout to select from each sample
+            trajs_to_plot = [traj_tensor[r] for traj_tensor in all_trajs]  # list of [H_n+1, 3] tensors
+            controls_to_plot = [control_tensor[r] for control_tensor in all_controls]  # list of [H_n] tensors
+            dynamics.plot_trajectories_all(trajs_to_plot, controls_to_plot, stage)
 
 
     dataset = MPCDataset(samples)
