@@ -43,7 +43,7 @@ def dataset_loading(dynamics, stage=1, prev_models=None, device='cuda'):
         '''
         samples, all_trajs, all_controls = generate_dataset(
                     dynamics=dynamics,
-                    size=600,
+                    size=1000,
                     N=100,
                     R=20,
                     H=30,  
@@ -51,7 +51,8 @@ def dataset_loading(dynamics, stage=1, prev_models=None, device='cuda'):
                     stage= stage,
                     device=device,
                     prev_stage_models= prev_models,
-                    return_trajectories=return_trajectories
+                    return_trajectories=return_trajectories,
+                    use_grid_sampling = True
                 )
         print(f"Generated {len(samples)} samples.")
 

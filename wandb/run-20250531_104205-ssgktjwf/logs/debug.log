@@ -26,3 +26,10 @@ config: {'learning_rate': 2e-05, 'epochs': 200, 'batch_size': 32, 'stage': 1}
 2025-05-31 10:42:06,493 INFO    MainThread:208402 [wandb_run.py:_redirect():2368] Wrapping output streams.
 2025-05-31 10:42:06,493 INFO    MainThread:208402 [wandb_run.py:_redirect():2393] Redirects installed.
 2025-05-31 10:42:06,494 INFO    MainThread:208402 [wandb_init.py:init():891] run started, returning control to user process
+2025-05-31 11:14:44,727 INFO    MainThread:208402 [wandb_run.py:_finish():2154] finishing run amplifierjennifer-ind/value-function-reachability/ssgktjwf
+2025-05-31 11:14:44,727 INFO    MainThread:208402 [wandb_run.py:_atexit_cleanup():2418] got exitcode: 0
+2025-05-31 11:14:44,727 INFO    MainThread:208402 [wandb_run.py:_restore():2400] restore
+2025-05-31 11:14:44,727 INFO    MainThread:208402 [wandb_run.py:_restore():2406] restore done
+2025-05-31 11:14:48,560 INFO    MainThread:208402 [wandb_run.py:_footer_history_summary_info():4076] rendering history
+2025-05-31 11:14:48,561 INFO    MainThread:208402 [wandb_run.py:_footer_history_summary_info():4108] rendering summary
+2025-05-31 11:14:48,566 INFO    MainThread:208402 [wandb_run.py:_footer_sync_info():4035] logging synced files

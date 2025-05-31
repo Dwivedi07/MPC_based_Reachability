@@ -35,7 +35,7 @@ def compute_recursive_value(x, t, dynamics, models):
     return V  # shape: [batch_size, 1]
 
 def generate_dataset(dynamics, size, N, R, H, u_std, stage, device, prev_stage_models = None, 
-                    return_trajectories=False):
+                    return_trajectories=False, use_grid_sampling=False):
     """
     Parallelized version of generate_dataset using GPU tensor ops.
     Args:
@@ -48,6 +48,7 @@ def generate_dataset(dynamics, size, N, R, H, u_std, stage, device, prev_stage_m
         device: CUDA or CPU device
         prev_stage_models : previous stage models
         return_trajectories: If True, returns raw trajectories and control inputs
+        use_grid_sampling: Whether to use grid-based round-robin sampling of states
 
     Returns:
         samples: List of tuples (t_i, x_i, V̂(t_i, x_i))
@@ -58,8 +59,22 @@ def generate_dataset(dynamics, size, N, R, H, u_std, stage, device, prev_stage_m
     all_trajs = []
     all_controls = []
 
+    # Create grid of states if grid-based sampling is enabled
+    if use_grid_sampling:
+        grid_dim = int(size ** (1 / 3)) + 1
+        z_vals = torch.linspace(*dynamics.state_range_[1], steps=grid_dim)
+        vz_vals = torch.linspace(*dynamics.state_range_[0], steps=grid_dim)
+        K_vals = torch.linspace(*dynamics.K_range, steps=grid_dim)
+
+        zz, vv, kk = torch.meshgrid(z_vals, vz_vals, K_vals, indexing='ij')
+        state_grid = torch.stack([zz.reshape(-1), vv.reshape(-1), kk.reshape(-1)], dim=1)
+        state_grid = state_grid[:size].to(device)
+
     for n in tqdm(range(size), desc="D_MPC samples", ncols=80, unit="sample"):
-        x_i = dynamics.sample_state(batch_size=1).to(device)  # [1, 3]
+        if use_grid_sampling:
+            x_i = state_grid[n:n+1]  # [1, 3]
+        else:
+            x_i = dynamics.sample_state(batch_size=1).to(device)  # [1, 3]
         t_i, t_f = dynamics.sample_time(stage, device)  #  [1] [1]
         H_rollout = torch.ceil((t_f - t_i) / dynamics.dt).long() 
         

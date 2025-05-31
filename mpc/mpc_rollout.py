@@ -1,6 +1,7 @@
 import torch
 import matplotlib.pyplot as plt
 import numpy as np
+import os
 
 class VerticalDroneDynamics:
     def __init__(self, device):
@@ -107,7 +108,7 @@ class VerticalDroneDynamics:
         plt.title('Drone Altitude Trajectories')
         plt.grid(True)
         plt.tight_layout()
-        plt.savefig(f'drone_altitude_{stage}.png')
+        plt.savefig(f'outputs/drone_altitude_{stage}.png')
         plt.show()
 
         # --- Plot controls ---
@@ -123,5 +124,5 @@ class VerticalDroneDynamics:
         plt.title('Control Sequences')
         plt.grid(True)
         plt.tight_layout()
-        plt.savefig(f'drone_controls_{stage}.png')
+        plt.savefig(f'outputs/drone_controls_{stage}.png')
         plt.show()

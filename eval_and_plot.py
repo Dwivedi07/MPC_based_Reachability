@@ -62,5 +62,5 @@ fail_proxy = mlines.Line2D([], [], color='red', linestyle='--', label='Failure s
 plt.legend(handles=[safe_proxy, fail_proxy], loc='upper right')
 
 plt.tight_layout()
-plt.savefig('stage1.png')
+plt.savefig('outputs/stage1.png')
 plt.show()

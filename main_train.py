@@ -25,7 +25,7 @@ This is the main script that orchestrates the training process.
 3. It uses the trained model for the next stage.
 '''
 
-NUM_STAGES = 4
+NUM_STAGES = 1
 prev_models = []
 train_from_checkpoint = False
 train_from_begining = True

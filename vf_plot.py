@@ -13,7 +13,7 @@ from utils.util import compute_recursive_value
 # ----------------------------
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 T = 0.6 # Final time
-K = 12.0  # Fixed gain
+K = 5.0  # Fixed gain
 num_stages = 2
 dynamics = VerticalDroneDynamics(device=device)
 # ----------------------------
@@ -72,5 +72,5 @@ fail_proxy = mlines.Line2D([], [], color='red', linestyle='--', label='Failure s
 plt.legend(handles=[safe_proxy, fail_proxy], loc='upper right')
 
 plt.tight_layout()
-plt.savefig('stage_full.png')
+plt.savefig('outputs/stage_full.png')
 plt.show()
