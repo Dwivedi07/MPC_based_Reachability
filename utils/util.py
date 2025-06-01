@@ -3,6 +3,58 @@ import matplotlib.pyplot as plt
 import numpy as np
 from tqdm import tqdm
 
+def compute_value_function_stagewise(x, t, dynamics, models):
+    """
+    Computes V(x, t) using models trained on multiple backward-in-time stages.
+    
+    Args:
+        x: Tensor of shape [N, 3] (z, vz, K)
+        t: Tensor of shape [N, 1] (times at which to evaluate V)
+        dynamics: includes compute_l(x) and T_terminals {stage: torch.tensor([T])}
+        models: list of trained models for each stage (stages 1 through 4)
+    
+    Returns:
+        V: Tensor of shape [N, 1] containing value function estimates at (x, t)
+    """
+    device = x.device
+    l_x = dynamics.compute_l(x)
+    if l_x.dim() == 1:
+        l_x = l_x.unsqueeze(1)
+    V = l_x
+    T_i = t[0][0].item()
+
+    '''
+    Check first where does T_i values lie : in first stage/second/third/fourth
+    if first: return l_x + (T_terminal_stage_1 - T_i)* O_pred_stage_1_model(x,T_i)
+    if second:  return l_x + (T_terminal_stage_1 - T_terminal_stage_2)* O_pred_stage_1_model(x,T_terminal_stage_2) + (T_terminal_stage_2 - T_i)* O_pred_stage_2_model(x, T_i)
+    and so on till stage 4
+    '''
+
+    for i, model in enumerate(models):  
+        stage = i + 1
+        T_end = dynamics.T_terminals[stage].to(x.device)       
+        T_start = dynamics.T_terminals[stage+1].to(x.device) 
+
+        if T_i > T_start.item() and T_i <= T_end.item():
+            # In this stage
+            delta_T = T_end - T_i
+            input_tensor = torch.cat([x, t], dim=1)  # t has same value across batch
+            with torch.no_grad():
+                O_pred = model(input_tensor)
+            V = V + delta_T * O_pred
+            break
+
+        else:
+            # Outside this stage — use full duration of model
+            input_tensor = torch.cat([x, T_start.expand(x.shape[0], 1)], dim=1)
+            with torch.no_grad(): 
+                O_pred = model(input_tensor) # prediction at start point stamp as not in this stage
+            V = V + (T_end - T_start) * O_pred
+
+    return V
+
+
+
 def compute_recursive_value(x, t, dynamics, models):
     """
     Recursively computes the predicted value function at (x, T_stage) using trained models.
@@ -20,10 +72,12 @@ def compute_recursive_value(x, t, dynamics, models):
     if V.dim() == 1:
         V = V.unsqueeze(1)
     T_i = t
+    # print('this is', T_i)
 
     for i, model in enumerate(models):  # stages 1 to current-1
         stage_i = i + 1
         T_ip1 = T_terminals[stage_i+1].to(x.device).expand(x.shape[0], 1)
+        # print('This is T_ip1', T_ip1)
         input_tensor = torch.cat([x, T_ip1], dim=1) # O_thistage eval at terminal of prev state
         with torch.no_grad():
             O_pred = model(input_tensor)

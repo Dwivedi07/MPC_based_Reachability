@@ -1,0 +1,776 @@
+2025-05-31 18:52:23,103 INFO    StreamThr :228177 [internal.py:wandb_internal():85] W&B internal server running at pid: 228177, started at: 2025-05-31 18:52:23.102435
+2025-05-31 18:52:23,104 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: status
+2025-05-31 18:52:23,106 INFO    WriterThread:228177 [datastore.py:open_for_write():87] open: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/run-e29z4037.wandb
+2025-05-31 18:52:23,106 DEBUG   SenderThread:228177 [sender.py:send():391] send: header
+2025-05-31 18:52:23,107 DEBUG   SenderThread:228177 [sender.py:send():391] send: run
+2025-05-31 18:52:23,297 INFO    SenderThread:228177 [dir_watcher.py:__init__():211] watching files in: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files
+2025-05-31 18:52:23,297 INFO    SenderThread:228177 [sender.py:_start_run_threads():1200] run started: e29z4037 with start time 1748742743.101793
+2025-05-31 18:52:23,305 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: check_version
+2025-05-31 18:52:23,305 DEBUG   SenderThread:228177 [sender.py:send_request():418] send_request: check_version
+2025-05-31 18:52:23,384 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: run_start
+2025-05-31 18:52:23,385 DEBUG   HandlerThread:228177 [system_info.py:__init__():26] System info init
+2025-05-31 18:52:23,385 DEBUG   HandlerThread:228177 [system_info.py:__init__():41] System info init done
+2025-05-31 18:52:23,385 INFO    HandlerThread:228177 [system_monitor.py:start():194] Starting system monitor
+2025-05-31 18:52:23,385 INFO    SystemMonitor:228177 [system_monitor.py:_start():158] Starting system asset monitoring threads
+2025-05-31 18:52:23,385 INFO    HandlerThread:228177 [system_monitor.py:probe():214] Collecting system info
+2025-05-31 18:52:23,386 INFO    SystemMonitor:228177 [interfaces.py:start():188] Started cpu monitoring
+2025-05-31 18:52:23,386 INFO    SystemMonitor:228177 [interfaces.py:start():188] Started disk monitoring
+2025-05-31 18:52:23,387 INFO    SystemMonitor:228177 [interfaces.py:start():188] Started gpu monitoring
+2025-05-31 18:52:23,388 INFO    SystemMonitor:228177 [interfaces.py:start():188] Started memory monitoring
+2025-05-31 18:52:23,389 INFO    SystemMonitor:228177 [interfaces.py:start():188] Started network monitoring
+2025-05-31 18:52:23,427 DEBUG   HandlerThread:228177 [system_info.py:probe():152] Probing system
+2025-05-31 18:52:23,427 DEBUG   HandlerThread:228177 [system_info.py:_probe_git():137] Probing git
+2025-05-31 18:52:23,435 DEBUG   HandlerThread:228177 [system_info.py:_probe_git():145] Probing git done
+2025-05-31 18:52:23,435 DEBUG   HandlerThread:228177 [system_info.py:probe():200] Probing system done
+2025-05-31 18:52:23,435 DEBUG   HandlerThread:228177 [system_monitor.py:probe():223] {'os': 'Linux-5.15.0-140-generic-x86_64-with-glibc2.35', 'python': '3.10.17', 'heartbeatAt': '2025-06-01T01:52:23.427118', 'startedAt': '2025-06-01T01:52:23.099595', 'docker': None, 'cuda': None, 'args': (), 'state': 'running', 'program': '/home/arpit/MPC_based_Reachability/main_train_prog.py', 'codePathLocal': 'main_train_prog.py', 'codePath': 'main_train_prog.py', 'git': {'remote': 'https://github.com/Dwivedi07/MPC_based_Reachability.git', 'commit': '65cd6590247fcec53752ea057113fc227812f06f'}, 'email': 'dwi.arpit@gmail.com', 'root': '/home/arpit/MPC_based_Reachability', 'host': 'iris', 'username': 'arpit', 'executable': '/home/arpit/miniforge3/envs/mpc-env/bin/python3', 'cpu_count': 16, 'cpu_count_logical': 32, 'cpu_freq': {'current': 2199.8691875, 'min': 2200.0, 'max': 3500.0}, 'cpu_freq_per_core': [{'current': 2200.0, 'min': 2200.0, 'max': 3500.0}, {'current': 2200.0, 'min': 2200.0, 'max': 3500.0}, {'current': 2200.0, 'min': 2200.0, 'max': 3500.0}, {'current': 2200.0, 'min': 2200.0, 'max': 3500.0}, {'current': 2200.0, 'min': 2200.0, 'max': 3500.0}, {'current': 2200.0, 'min': 2200.0, 'max': 3500.0}, {'current': 2200.0, 'min': 2200.0, 'max': 3500.0}, {'current': 2195.893, 'min': 2200.0, 'max': 3500.0}, {'current': 2200.0, 'min': 2200.0, 'max': 3500.0}, {'current': 2200.0, 'min': 2200.0, 'max': 3500.0}, {'current': 2200.0, 'min': 2200.0, 'max': 3500.0}, {'current': 2200.0, 'min': 2200.0, 'max': 3500.0}, {'current': 2200.0, 'min': 2200.0, 'max': 3500.0}, {'current': 2200.0, 'min': 2200.0, 'max': 3500.0}, {'current': 2200.0, 'min': 2200.0, 'max': 3500.0}, {'current': 2200.0, 'min': 2200.0, 'max': 3500.0}, {'current': 2200.0, 'min': 2200.0, 'max': 3500.0}, {'current': 2200.0, 'min': 2200.0, 'max': 3500.0}, {'current': 2200.0, 'min': 2200.0, 'max': 3500.0}, {'current': 2200.0, 'min': 2200.0, 'max': 3500.0}, {'current': 2200.0, 'min': 2200.0, 'max': 3500.0}, {'current': 2200.0, 'min': 2200.0, 'max': 3500.0}, {'current': 2200.0, 'min': 2200.0, 'max': 3500.0}, {'current': 2200.0, 'min': 2200.0, 'max': 3500.0}, {'current': 2200.0, 'min': 2200.0, 'max': 3500.0}, {'current': 2200.0, 'min': 2200.0, 'max': 3500.0}, {'current': 2200.0, 'min': 2200.0, 'max': 3500.0}, {'current': 2200.0, 'min': 2200.0, 'max': 3500.0}, {'current': 2200.0, 'min': 2200.0, 'max': 3500.0}, {'current': 2200.0, 'min': 2200.0, 'max': 3500.0}, {'current': 2200.0, 'min': 2200.0, 'max': 3500.0}, {'current': 2200.0, 'min': 2200.0, 'max': 3500.0}], 'disk': {'/': {'total': 915.3232879638672, 'used': 840.9158172607422}}, 'gpu': 'NVIDIA GeForce RTX 3080 Ti', 'gpu_count': 1, 'gpu_devices': [{'name': 'NVIDIA GeForce RTX 3080 Ti', 'memory_total': 12884901888}], 'memory': {'total': 125.70024490356445}}
+2025-05-31 18:52:23,435 INFO    HandlerThread:228177 [system_monitor.py:probe():224] Finished collecting system info
+2025-05-31 18:52:23,435 INFO    HandlerThread:228177 [system_monitor.py:probe():227] Publishing system info
+2025-05-31 18:52:23,435 DEBUG   HandlerThread:228177 [system_info.py:_save_conda():209] Saving list of conda packages installed into the current environment
+2025-05-31 18:52:24,298 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_created():271] file/dir created: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/conda-environment.yaml
+2025-05-31 18:52:24,400 DEBUG   HandlerThread:228177 [system_info.py:_save_conda():224] Saving conda packages done
+2025-05-31 18:52:24,401 INFO    HandlerThread:228177 [system_monitor.py:probe():229] Finished publishing system info
+2025-05-31 18:52:24,401 DEBUG   SenderThread:228177 [sender.py:send():391] send: files
+2025-05-31 18:52:24,402 INFO    SenderThread:228177 [sender.py:_save_file():1466] saving file wandb-metadata.json with policy now
+2025-05-31 18:52:24,523 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: python_packages
+2025-05-31 18:52:24,523 DEBUG   SenderThread:228177 [sender.py:send_request():418] send_request: python_packages
+2025-05-31 18:52:24,524 DEBUG   SenderThread:228177 [sender.py:send():391] send: telemetry
+2025-05-31 18:52:24,524 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: stop_status
+2025-05-31 18:52:24,525 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:52:24,525 DEBUG   SenderThread:228177 [sender.py:send_request():418] send_request: stop_status
+2025-05-31 18:52:24,728 INFO    wandb-upload_0:228177 [upload_job.py:push():130] Uploaded file /tmp/tmp34asa7pjwandb/62h9j6lx-wandb-metadata.json
+2025-05-31 18:52:25,297 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/conda-environment.yaml
+2025-05-31 18:52:25,298 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_created():271] file/dir created: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/requirements.txt
+2025-05-31 18:52:25,298 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_created():271] file/dir created: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/wandb-metadata.json
+2025-05-31 18:52:25,298 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_created():271] file/dir created: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/output.log
+2025-05-31 18:52:25,524 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:52:26,524 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:52:27,298 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/output.log
+2025-05-31 18:52:27,524 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:52:28,524 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:52:28,680 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: status_report
+2025-05-31 18:52:29,025 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: partial_history
+2025-05-31 18:52:29,026 DEBUG   SenderThread:228177 [sender.py:send():391] send: history
+2025-05-31 18:52:29,026 DEBUG   SenderThread:228177 [sender.py:send_request():418] send_request: summary_record
+2025-05-31 18:52:29,028 INFO    SenderThread:228177 [sender.py:_save_file():1466] saving file wandb-summary.json with policy end
+2025-05-31 18:52:29,298 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_created():271] file/dir created: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/wandb-summary.json
+2025-05-31 18:52:29,524 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:52:30,524 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:52:31,299 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/output.log
+2025-05-31 18:52:31,524 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:52:32,524 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:52:33,524 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:52:33,528 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: partial_history
+2025-05-31 18:52:33,528 DEBUG   SenderThread:228177 [sender.py:send():391] send: history
+2025-05-31 18:52:33,529 DEBUG   SenderThread:228177 [sender.py:send_request():418] send_request: summary_record
+2025-05-31 18:52:33,529 INFO    SenderThread:228177 [sender.py:_save_file():1466] saving file wandb-summary.json with policy end
+2025-05-31 18:52:34,300 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/wandb-summary.json
+2025-05-31 18:52:34,524 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: status_report
+2025-05-31 18:52:34,524 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:52:35,300 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/output.log
+2025-05-31 18:52:35,525 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:52:36,525 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:52:37,525 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:52:38,188 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: partial_history
+2025-05-31 18:52:38,189 DEBUG   SenderThread:228177 [sender.py:send():391] send: history
+2025-05-31 18:52:38,189 DEBUG   SenderThread:228177 [sender.py:send_request():418] send_request: summary_record
+2025-05-31 18:52:38,191 INFO    SenderThread:228177 [sender.py:_save_file():1466] saving file wandb-summary.json with policy end
+2025-05-31 18:52:38,301 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/wandb-summary.json
+2025-05-31 18:52:38,525 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:52:39,301 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/output.log
+2025-05-31 18:52:39,523 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: stop_status
+2025-05-31 18:52:39,524 DEBUG   SenderThread:228177 [sender.py:send_request():418] send_request: stop_status
+2025-05-31 18:52:39,564 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:52:39,639 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: status_report
+2025-05-31 18:52:40,525 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:52:41,525 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:52:42,525 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:52:42,701 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: partial_history
+2025-05-31 18:52:42,701 DEBUG   SenderThread:228177 [sender.py:send():391] send: history
+2025-05-31 18:52:42,701 DEBUG   SenderThread:228177 [sender.py:send_request():418] send_request: summary_record
+2025-05-31 18:52:42,703 INFO    SenderThread:228177 [sender.py:_save_file():1466] saving file wandb-summary.json with policy end
+2025-05-31 18:52:43,302 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/wandb-summary.json
+2025-05-31 18:52:43,526 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:52:44,525 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:52:45,302 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/output.log
+2025-05-31 18:52:45,524 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: status_report
+2025-05-31 18:52:45,525 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:52:46,525 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:52:47,217 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: partial_history
+2025-05-31 18:52:47,218 DEBUG   SenderThread:228177 [sender.py:send():391] send: history
+2025-05-31 18:52:47,218 DEBUG   SenderThread:228177 [sender.py:send_request():418] send_request: summary_record
+2025-05-31 18:52:47,219 INFO    SenderThread:228177 [sender.py:_save_file():1466] saving file wandb-summary.json with policy end
+2025-05-31 18:52:47,303 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/wandb-summary.json
+2025-05-31 18:52:47,526 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:52:48,526 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:52:49,303 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/output.log
+2025-05-31 18:52:49,526 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:52:50,526 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:52:51,524 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: status_report
+2025-05-31 18:52:51,526 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:52:51,750 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: partial_history
+2025-05-31 18:52:51,751 DEBUG   SenderThread:228177 [sender.py:send():391] send: history
+2025-05-31 18:52:51,751 DEBUG   SenderThread:228177 [sender.py:send_request():418] send_request: summary_record
+2025-05-31 18:52:51,751 INFO    SenderThread:228177 [sender.py:_save_file():1466] saving file wandb-summary.json with policy end
+2025-05-31 18:52:52,304 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/wandb-summary.json
+2025-05-31 18:52:52,526 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:52:53,304 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/output.log
+2025-05-31 18:52:53,526 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:52:54,523 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: stop_status
+2025-05-31 18:52:54,523 DEBUG   SenderThread:228177 [sender.py:send_request():418] send_request: stop_status
+2025-05-31 18:52:54,564 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:52:55,526 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:52:56,526 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:52:56,684 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: status_report
+2025-05-31 18:52:56,754 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: partial_history
+2025-05-31 18:52:56,758 DEBUG   SenderThread:228177 [sender.py:send():391] send: history
+2025-05-31 18:52:56,759 DEBUG   SenderThread:228177 [sender.py:send_request():418] send_request: summary_record
+2025-05-31 18:52:56,773 INFO    SenderThread:228177 [sender.py:_save_file():1466] saving file wandb-summary.json with policy end
+2025-05-31 18:52:57,305 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/config.yaml
+2025-05-31 18:52:57,305 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/wandb-summary.json
+2025-05-31 18:52:57,526 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:52:58,526 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:52:59,306 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/output.log
+2025-05-31 18:52:59,527 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:53:00,527 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:53:01,297 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: partial_history
+2025-05-31 18:53:01,298 DEBUG   SenderThread:228177 [sender.py:send():391] send: history
+2025-05-31 18:53:01,298 DEBUG   SenderThread:228177 [sender.py:send_request():418] send_request: summary_record
+2025-05-31 18:53:01,298 INFO    SenderThread:228177 [sender.py:_save_file():1466] saving file wandb-summary.json with policy end
+2025-05-31 18:53:01,306 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/wandb-summary.json
+2025-05-31 18:53:01,527 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:53:02,340 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: status_report
+2025-05-31 18:53:02,527 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:53:03,307 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/output.log
+2025-05-31 18:53:03,527 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:53:04,527 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:53:05,527 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:53:06,053 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: partial_history
+2025-05-31 18:53:06,053 DEBUG   SenderThread:228177 [sender.py:send():391] send: history
+2025-05-31 18:53:06,054 DEBUG   SenderThread:228177 [sender.py:send_request():418] send_request: summary_record
+2025-05-31 18:53:06,055 INFO    SenderThread:228177 [sender.py:_save_file():1466] saving file wandb-summary.json with policy end
+2025-05-31 18:53:06,307 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/wandb-summary.json
+2025-05-31 18:53:06,527 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:53:07,308 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/output.log
+2025-05-31 18:53:07,527 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:53:08,096 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: status_report
+2025-05-31 18:53:08,527 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:53:09,523 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: stop_status
+2025-05-31 18:53:09,524 DEBUG   SenderThread:228177 [sender.py:send_request():418] send_request: stop_status
+2025-05-31 18:53:09,564 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:53:10,528 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:53:10,583 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: partial_history
+2025-05-31 18:53:10,584 DEBUG   SenderThread:228177 [sender.py:send():391] send: history
+2025-05-31 18:53:10,584 DEBUG   SenderThread:228177 [sender.py:send_request():418] send_request: summary_record
+2025-05-31 18:53:10,584 INFO    SenderThread:228177 [sender.py:_save_file():1466] saving file wandb-summary.json with policy end
+2025-05-31 18:53:11,309 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/wandb-summary.json
+2025-05-31 18:53:11,309 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/output.log
+2025-05-31 18:53:11,528 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:53:12,528 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:53:13,528 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:53:13,625 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: status_report
+2025-05-31 18:53:14,528 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:53:15,130 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: partial_history
+2025-05-31 18:53:15,130 DEBUG   SenderThread:228177 [sender.py:send():391] send: history
+2025-05-31 18:53:15,130 DEBUG   SenderThread:228177 [sender.py:send_request():418] send_request: summary_record
+2025-05-31 18:53:15,132 INFO    SenderThread:228177 [sender.py:_save_file():1466] saving file wandb-summary.json with policy end
+2025-05-31 18:53:15,310 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/wandb-summary.json
+2025-05-31 18:53:15,528 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:53:16,528 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:53:17,310 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/output.log
+2025-05-31 18:53:17,528 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:53:18,203 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: partial_history
+2025-05-31 18:53:18,203 DEBUG   SenderThread:228177 [sender.py:send():391] send: history
+2025-05-31 18:53:18,203 DEBUG   SenderThread:228177 [sender.py:send_request():418] send_request: summary_record
+2025-05-31 18:53:18,205 INFO    SenderThread:228177 [sender.py:_save_file():1466] saving file wandb-summary.json with policy end
+2025-05-31 18:53:18,310 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/wandb-summary.json
+2025-05-31 18:53:18,528 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:53:19,244 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: status_report
+2025-05-31 18:53:19,311 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/output.log
+2025-05-31 18:53:19,529 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:53:20,529 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:53:21,529 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:53:22,350 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: partial_history
+2025-05-31 18:53:22,350 DEBUG   SenderThread:228177 [sender.py:send():391] send: history
+2025-05-31 18:53:22,350 DEBUG   SenderThread:228177 [sender.py:send_request():418] send_request: summary_record
+2025-05-31 18:53:22,351 INFO    SenderThread:228177 [sender.py:_save_file():1466] saving file wandb-summary.json with policy end
+2025-05-31 18:53:22,529 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:53:23,311 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/wandb-summary.json
+2025-05-31 18:53:23,312 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/output.log
+2025-05-31 18:53:23,389 DEBUG   SystemMonitor:228177 [system_monitor.py:_start():172] Starting system metrics aggregation loop
+2025-05-31 18:53:23,390 DEBUG   SenderThread:228177 [sender.py:send():391] send: stats
+2025-05-31 18:53:23,529 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:53:24,391 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: status_report
+2025-05-31 18:53:24,523 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: stop_status
+2025-05-31 18:53:24,524 DEBUG   SenderThread:228177 [sender.py:send_request():418] send_request: stop_status
+2025-05-31 18:53:24,564 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:53:25,435 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: partial_history
+2025-05-31 18:53:25,436 DEBUG   SenderThread:228177 [sender.py:send():391] send: history
+2025-05-31 18:53:25,436 DEBUG   SenderThread:228177 [sender.py:send_request():418] send_request: summary_record
+2025-05-31 18:53:25,436 INFO    SenderThread:228177 [sender.py:_save_file():1466] saving file wandb-summary.json with policy end
+2025-05-31 18:53:25,529 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:53:26,312 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/wandb-summary.json
+2025-05-31 18:53:26,529 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:53:27,312 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/output.log
+2025-05-31 18:53:27,529 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:53:28,520 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: partial_history
+2025-05-31 18:53:28,520 DEBUG   SenderThread:228177 [sender.py:send():391] send: history
+2025-05-31 18:53:28,520 DEBUG   SenderThread:228177 [sender.py:send_request():418] send_request: summary_record
+2025-05-31 18:53:28,521 INFO    SenderThread:228177 [sender.py:_save_file():1466] saving file wandb-summary.json with policy end
+2025-05-31 18:53:28,560 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:53:29,313 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/wandb-summary.json
+2025-05-31 18:53:29,313 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/output.log
+2025-05-31 18:53:29,525 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: status_report
+2025-05-31 18:53:29,529 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:53:30,529 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:53:31,529 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:53:31,596 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: partial_history
+2025-05-31 18:53:31,597 DEBUG   SenderThread:228177 [sender.py:send():391] send: history
+2025-05-31 18:53:31,597 DEBUG   SenderThread:228177 [sender.py:send_request():418] send_request: summary_record
+2025-05-31 18:53:31,597 INFO    SenderThread:228177 [sender.py:_save_file():1466] saving file wandb-summary.json with policy end
+2025-05-31 18:53:32,314 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/wandb-summary.json
+2025-05-31 18:53:32,530 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:53:33,314 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/output.log
+2025-05-31 18:53:33,530 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:53:34,526 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: status_report
+2025-05-31 18:53:34,530 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:53:34,673 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: partial_history
+2025-05-31 18:53:34,673 DEBUG   SenderThread:228177 [sender.py:send():391] send: history
+2025-05-31 18:53:34,673 DEBUG   SenderThread:228177 [sender.py:send_request():418] send_request: summary_record
+2025-05-31 18:53:34,674 INFO    SenderThread:228177 [sender.py:_save_file():1466] saving file wandb-summary.json with policy end
+2025-05-31 18:53:35,314 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/wandb-summary.json
+2025-05-31 18:53:35,315 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/output.log
+2025-05-31 18:53:35,530 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:53:36,530 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:53:37,530 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:53:38,223 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: partial_history
+2025-05-31 18:53:38,223 DEBUG   SenderThread:228177 [sender.py:send():391] send: history
+2025-05-31 18:53:38,223 DEBUG   SenderThread:228177 [sender.py:send_request():418] send_request: summary_record
+2025-05-31 18:53:38,224 INFO    SenderThread:228177 [sender.py:_save_file():1466] saving file wandb-summary.json with policy end
+2025-05-31 18:53:38,315 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/wandb-summary.json
+2025-05-31 18:53:38,530 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:53:39,315 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/output.log
+2025-05-31 18:53:39,524 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: stop_status
+2025-05-31 18:53:39,524 DEBUG   SenderThread:228177 [sender.py:send_request():418] send_request: stop_status
+2025-05-31 18:53:39,564 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:53:39,651 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: status_report
+2025-05-31 18:53:40,530 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:53:41,530 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:53:41,773 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: partial_history
+2025-05-31 18:53:41,774 DEBUG   SenderThread:228177 [sender.py:send():391] send: history
+2025-05-31 18:53:41,774 DEBUG   SenderThread:228177 [sender.py:send_request():418] send_request: summary_record
+2025-05-31 18:53:41,774 INFO    SenderThread:228177 [sender.py:_save_file():1466] saving file wandb-summary.json with policy end
+2025-05-31 18:53:42,316 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/wandb-summary.json
+2025-05-31 18:53:42,530 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:53:43,316 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/output.log
+2025-05-31 18:53:43,530 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:53:44,530 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:53:45,322 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: partial_history
+2025-05-31 18:53:45,323 DEBUG   SenderThread:228177 [sender.py:send():391] send: history
+2025-05-31 18:53:45,323 DEBUG   SenderThread:228177 [sender.py:send_request():418] send_request: summary_record
+2025-05-31 18:53:45,323 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: status_report
+2025-05-31 18:53:45,324 INFO    SenderThread:228177 [sender.py:_save_file():1466] saving file wandb-summary.json with policy end
+2025-05-31 18:53:45,531 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:53:46,317 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/wandb-summary.json
+2025-05-31 18:53:46,531 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:53:47,317 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/output.log
+2025-05-31 18:53:47,531 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:53:48,531 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:53:48,861 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: partial_history
+2025-05-31 18:53:48,862 DEBUG   SenderThread:228177 [sender.py:send():391] send: history
+2025-05-31 18:53:48,862 DEBUG   SenderThread:228177 [sender.py:send_request():418] send_request: summary_record
+2025-05-31 18:53:48,862 INFO    SenderThread:228177 [sender.py:_save_file():1466] saving file wandb-summary.json with policy end
+2025-05-31 18:53:49,317 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/wandb-summary.json
+2025-05-31 18:53:49,531 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:53:50,526 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: status_report
+2025-05-31 18:53:50,531 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:53:51,318 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/output.log
+2025-05-31 18:53:51,531 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:53:52,404 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: partial_history
+2025-05-31 18:53:52,405 DEBUG   SenderThread:228177 [sender.py:send():391] send: history
+2025-05-31 18:53:52,405 DEBUG   SenderThread:228177 [sender.py:send_request():418] send_request: summary_record
+2025-05-31 18:53:52,405 INFO    SenderThread:228177 [sender.py:_save_file():1466] saving file wandb-summary.json with policy end
+2025-05-31 18:53:52,531 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:53:53,318 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/wandb-summary.json
+2025-05-31 18:53:53,318 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/output.log
+2025-05-31 18:53:53,391 DEBUG   SenderThread:228177 [sender.py:send():391] send: stats
+2025-05-31 18:53:53,531 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:53:54,524 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: stop_status
+2025-05-31 18:53:54,524 DEBUG   SenderThread:228177 [sender.py:send_request():418] send_request: stop_status
+2025-05-31 18:53:54,564 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:53:55,531 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:53:55,603 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: status_report
+2025-05-31 18:53:56,532 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:53:57,424 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: partial_history
+2025-05-31 18:53:57,425 DEBUG   SenderThread:228177 [sender.py:send():391] send: history
+2025-05-31 18:53:57,425 DEBUG   SenderThread:228177 [sender.py:send_request():418] send_request: summary_record
+2025-05-31 18:53:57,425 INFO    SenderThread:228177 [sender.py:_save_file():1466] saving file wandb-summary.json with policy end
+2025-05-31 18:53:57,532 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:53:58,319 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/wandb-summary.json
+2025-05-31 18:53:58,532 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:53:59,319 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/output.log
+2025-05-31 18:53:59,532 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:54:00,532 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:54:01,526 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: status_report
+2025-05-31 18:54:01,532 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:54:02,532 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:54:02,533 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: partial_history
+2025-05-31 18:54:02,534 DEBUG   SenderThread:228177 [sender.py:send():391] send: history
+2025-05-31 18:54:02,534 DEBUG   SenderThread:228177 [sender.py:send_request():418] send_request: summary_record
+2025-05-31 18:54:02,534 INFO    SenderThread:228177 [sender.py:_save_file():1466] saving file wandb-summary.json with policy end
+2025-05-31 18:54:03,320 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/wandb-summary.json
+2025-05-31 18:54:03,321 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/output.log
+2025-05-31 18:54:03,532 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:54:04,532 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:54:05,532 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:54:06,097 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: partial_history
+2025-05-31 18:54:06,098 DEBUG   SenderThread:228177 [sender.py:send():391] send: history
+2025-05-31 18:54:06,098 DEBUG   SenderThread:228177 [sender.py:send_request():418] send_request: summary_record
+2025-05-31 18:54:06,098 INFO    SenderThread:228177 [sender.py:_save_file():1466] saving file wandb-summary.json with policy end
+2025-05-31 18:54:06,321 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/wandb-summary.json
+2025-05-31 18:54:06,532 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:54:07,140 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: status_report
+2025-05-31 18:54:07,321 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/output.log
+2025-05-31 18:54:07,533 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:54:08,533 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:54:09,524 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: stop_status
+2025-05-31 18:54:09,524 DEBUG   SenderThread:228177 [sender.py:send_request():418] send_request: stop_status
+2025-05-31 18:54:09,564 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:54:10,533 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:54:10,997 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: partial_history
+2025-05-31 18:54:10,998 DEBUG   SenderThread:228177 [sender.py:send():391] send: history
+2025-05-31 18:54:10,998 DEBUG   SenderThread:228177 [sender.py:send_request():418] send_request: summary_record
+2025-05-31 18:54:10,999 INFO    SenderThread:228177 [sender.py:_save_file():1466] saving file wandb-summary.json with policy end
+2025-05-31 18:54:11,322 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/wandb-summary.json
+2025-05-31 18:54:11,533 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:54:12,533 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:54:13,040 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: status_report
+2025-05-31 18:54:13,323 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/output.log
+2025-05-31 18:54:13,533 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:54:14,533 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:54:15,533 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:54:15,889 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: partial_history
+2025-05-31 18:54:15,890 DEBUG   SenderThread:228177 [sender.py:send():391] send: history
+2025-05-31 18:54:15,890 DEBUG   SenderThread:228177 [sender.py:send_request():418] send_request: summary_record
+2025-05-31 18:54:15,891 INFO    SenderThread:228177 [sender.py:_save_file():1466] saving file wandb-summary.json with policy end
+2025-05-31 18:54:16,323 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/wandb-summary.json
+2025-05-31 18:54:16,533 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:54:17,324 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/output.log
+2025-05-31 18:54:17,533 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:54:18,533 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:54:18,932 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: status_report
+2025-05-31 18:54:19,534 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:54:20,534 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:54:21,017 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: partial_history
+2025-05-31 18:54:21,017 DEBUG   SenderThread:228177 [sender.py:send():391] send: history
+2025-05-31 18:54:21,018 DEBUG   SenderThread:228177 [sender.py:send_request():418] send_request: summary_record
+2025-05-31 18:54:21,018 INFO    SenderThread:228177 [sender.py:_save_file():1466] saving file wandb-summary.json with policy end
+2025-05-31 18:54:21,324 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/wandb-summary.json
+2025-05-31 18:54:21,534 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:54:22,534 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:54:23,325 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/output.log
+2025-05-31 18:54:23,392 DEBUG   SenderThread:228177 [sender.py:send():391] send: stats
+2025-05-31 18:54:23,534 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:54:24,392 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: status_report
+2025-05-31 18:54:24,524 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: stop_status
+2025-05-31 18:54:24,524 DEBUG   SenderThread:228177 [sender.py:send_request():418] send_request: stop_status
+2025-05-31 18:54:24,564 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:54:24,885 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: partial_history
+2025-05-31 18:54:24,885 DEBUG   SenderThread:228177 [sender.py:send():391] send: history
+2025-05-31 18:54:24,886 DEBUG   SenderThread:228177 [sender.py:send_request():418] send_request: summary_record
+2025-05-31 18:54:24,886 INFO    SenderThread:228177 [sender.py:_save_file():1466] saving file wandb-summary.json with policy end
+2025-05-31 18:54:25,325 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/wandb-summary.json
+2025-05-31 18:54:25,534 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:54:26,534 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:54:27,326 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/output.log
+2025-05-31 18:54:27,534 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:54:28,534 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:54:29,426 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: partial_history
+2025-05-31 18:54:29,427 DEBUG   SenderThread:228177 [sender.py:send():391] send: history
+2025-05-31 18:54:29,427 DEBUG   SenderThread:228177 [sender.py:send_request():418] send_request: summary_record
+2025-05-31 18:54:29,427 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: status_report
+2025-05-31 18:54:29,427 INFO    SenderThread:228177 [sender.py:_save_file():1466] saving file wandb-summary.json with policy end
+2025-05-31 18:54:29,534 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:54:30,327 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/wandb-summary.json
+2025-05-31 18:54:30,535 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:54:31,327 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/output.log
+2025-05-31 18:54:31,535 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:54:32,535 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:54:33,535 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:54:33,980 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: partial_history
+2025-05-31 18:54:33,980 DEBUG   SenderThread:228177 [sender.py:send():391] send: history
+2025-05-31 18:54:33,981 DEBUG   SenderThread:228177 [sender.py:send_request():418] send_request: summary_record
+2025-05-31 18:54:33,982 INFO    SenderThread:228177 [sender.py:_save_file():1466] saving file wandb-summary.json with policy end
+2025-05-31 18:54:34,328 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/wandb-summary.json
+2025-05-31 18:54:34,527 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: status_report
+2025-05-31 18:54:34,535 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:54:35,328 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/output.log
+2025-05-31 18:54:35,535 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:54:36,535 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:54:37,535 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:54:38,535 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:54:38,869 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: partial_history
+2025-05-31 18:54:38,870 DEBUG   SenderThread:228177 [sender.py:send():391] send: history
+2025-05-31 18:54:38,870 DEBUG   SenderThread:228177 [sender.py:send_request():418] send_request: summary_record
+2025-05-31 18:54:38,870 INFO    SenderThread:228177 [sender.py:_save_file():1466] saving file wandb-summary.json with policy end
+2025-05-31 18:54:39,329 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/wandb-summary.json
+2025-05-31 18:54:39,524 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: stop_status
+2025-05-31 18:54:39,524 DEBUG   SenderThread:228177 [sender.py:send_request():418] send_request: stop_status
+2025-05-31 18:54:39,535 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:54:39,605 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: status_report
+2025-05-31 18:54:40,535 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:54:41,329 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/output.log
+2025-05-31 18:54:41,536 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:54:42,536 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:54:43,536 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:54:43,723 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: partial_history
+2025-05-31 18:54:43,724 DEBUG   SenderThread:228177 [sender.py:send():391] send: history
+2025-05-31 18:54:43,724 DEBUG   SenderThread:228177 [sender.py:send_request():418] send_request: summary_record
+2025-05-31 18:54:43,724 INFO    SenderThread:228177 [sender.py:_save_file():1466] saving file wandb-summary.json with policy end
+2025-05-31 18:54:44,330 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/wandb-summary.json
+2025-05-31 18:54:44,536 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:54:45,330 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/output.log
+2025-05-31 18:54:45,527 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: status_report
+2025-05-31 18:54:45,536 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:54:46,536 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:54:47,536 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:54:48,249 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: partial_history
+2025-05-31 18:54:48,250 DEBUG   SenderThread:228177 [sender.py:send():391] send: history
+2025-05-31 18:54:48,250 DEBUG   SenderThread:228177 [sender.py:send_request():418] send_request: summary_record
+2025-05-31 18:54:48,250 INFO    SenderThread:228177 [sender.py:_save_file():1466] saving file wandb-summary.json with policy end
+2025-05-31 18:54:48,331 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/wandb-summary.json
+2025-05-31 18:54:48,536 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:54:49,331 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/output.log
+2025-05-31 18:54:49,536 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:54:50,527 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: status_report
+2025-05-31 18:54:50,536 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:54:51,537 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:54:52,537 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:54:52,788 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: partial_history
+2025-05-31 18:54:52,789 DEBUG   SenderThread:228177 [sender.py:send():391] send: history
+2025-05-31 18:54:52,789 DEBUG   SenderThread:228177 [sender.py:send_request():418] send_request: summary_record
+2025-05-31 18:54:52,789 INFO    SenderThread:228177 [sender.py:_save_file():1466] saving file wandb-summary.json with policy end
+2025-05-31 18:54:53,332 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/wandb-summary.json
+2025-05-31 18:54:53,332 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/output.log
+2025-05-31 18:54:53,393 DEBUG   SenderThread:228177 [sender.py:send():391] send: stats
+2025-05-31 18:54:53,537 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:54:54,524 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: stop_status
+2025-05-31 18:54:54,524 DEBUG   SenderThread:228177 [sender.py:send_request():418] send_request: stop_status
+2025-05-31 18:54:54,564 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:54:55,537 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:54:55,665 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: status_report
+2025-05-31 18:54:56,537 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:54:57,388 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: partial_history
+2025-05-31 18:54:57,389 DEBUG   SenderThread:228177 [sender.py:send():391] send: history
+2025-05-31 18:54:57,389 DEBUG   SenderThread:228177 [sender.py:send_request():418] send_request: summary_record
+2025-05-31 18:54:57,390 INFO    SenderThread:228177 [sender.py:_save_file():1466] saving file wandb-summary.json with policy end
+2025-05-31 18:54:57,537 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:54:58,333 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/wandb-summary.json
+2025-05-31 18:54:58,537 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:54:59,333 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/output.log
+2025-05-31 18:54:59,537 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:55:00,538 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:55:01,527 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: status_report
+2025-05-31 18:55:01,538 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:55:01,915 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: partial_history
+2025-05-31 18:55:01,916 DEBUG   SenderThread:228177 [sender.py:send():391] send: history
+2025-05-31 18:55:01,916 DEBUG   SenderThread:228177 [sender.py:send_request():418] send_request: summary_record
+2025-05-31 18:55:01,916 INFO    SenderThread:228177 [sender.py:_save_file():1466] saving file wandb-summary.json with policy end
+2025-05-31 18:55:02,334 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/wandb-summary.json
+2025-05-31 18:55:02,538 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:55:03,334 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/output.log
+2025-05-31 18:55:03,538 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:55:04,538 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:55:05,538 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:55:06,445 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: partial_history
+2025-05-31 18:55:06,446 DEBUG   SenderThread:228177 [sender.py:send():391] send: history
+2025-05-31 18:55:06,446 DEBUG   SenderThread:228177 [sender.py:send_request():418] send_request: summary_record
+2025-05-31 18:55:06,447 INFO    SenderThread:228177 [sender.py:_save_file():1466] saving file wandb-summary.json with policy end
+2025-05-31 18:55:06,538 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:55:07,335 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/wandb-summary.json
+2025-05-31 18:55:07,336 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/output.log
+2025-05-31 18:55:07,492 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: status_report
+2025-05-31 18:55:07,538 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:55:08,538 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:55:09,524 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: stop_status
+2025-05-31 18:55:09,524 DEBUG   SenderThread:228177 [sender.py:send_request():418] send_request: stop_status
+2025-05-31 18:55:09,568 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:55:10,539 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:55:10,972 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: partial_history
+2025-05-31 18:55:10,973 DEBUG   SenderThread:228177 [sender.py:send():391] send: history
+2025-05-31 18:55:10,973 DEBUG   SenderThread:228177 [sender.py:send_request():418] send_request: summary_record
+2025-05-31 18:55:10,974 INFO    SenderThread:228177 [sender.py:_save_file():1466] saving file wandb-summary.json with policy end
+2025-05-31 18:55:11,337 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/wandb-summary.json
+2025-05-31 18:55:11,539 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:55:12,539 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:55:13,016 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: status_report
+2025-05-31 18:55:13,337 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/output.log
+2025-05-31 18:55:13,539 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:55:14,539 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:55:15,534 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: partial_history
+2025-05-31 18:55:15,534 DEBUG   SenderThread:228177 [sender.py:send():391] send: history
+2025-05-31 18:55:15,534 DEBUG   SenderThread:228177 [sender.py:send_request():418] send_request: summary_record
+2025-05-31 18:55:15,535 INFO    SenderThread:228177 [sender.py:_save_file():1466] saving file wandb-summary.json with policy end
+2025-05-31 18:55:15,576 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:55:16,338 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/wandb-summary.json
+2025-05-31 18:55:16,550 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:55:17,338 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/output.log
+2025-05-31 18:55:17,550 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:55:18,551 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:55:18,577 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: status_report
+2025-05-31 18:55:19,551 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:55:20,084 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: partial_history
+2025-05-31 18:55:20,085 DEBUG   SenderThread:228177 [sender.py:send():391] send: history
+2025-05-31 18:55:20,085 DEBUG   SenderThread:228177 [sender.py:send_request():418] send_request: summary_record
+2025-05-31 18:55:20,086 INFO    SenderThread:228177 [sender.py:_save_file():1466] saving file wandb-summary.json with policy end
+2025-05-31 18:55:20,339 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/wandb-summary.json
+2025-05-31 18:55:20,551 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:55:21,339 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/output.log
+2025-05-31 18:55:21,551 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:55:22,551 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:55:23,393 DEBUG   SenderThread:228177 [sender.py:send():391] send: stats
+2025-05-31 18:55:23,551 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:55:24,394 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: status_report
+2025-05-31 18:55:24,524 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: partial_history
+2025-05-31 18:55:24,524 DEBUG   SenderThread:228177 [sender.py:send():391] send: history
+2025-05-31 18:55:24,525 DEBUG   SenderThread:228177 [sender.py:send_request():418] send_request: summary_record
+2025-05-31 18:55:24,525 INFO    SenderThread:228177 [sender.py:_save_file():1466] saving file wandb-summary.json with policy end
+2025-05-31 18:55:24,564 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: stop_status
+2025-05-31 18:55:24,564 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:55:24,565 DEBUG   SenderThread:228177 [sender.py:send_request():418] send_request: stop_status
+2025-05-31 18:55:25,340 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/wandb-summary.json
+2025-05-31 18:55:25,340 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/output.log
+2025-05-31 18:55:25,551 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:55:26,551 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:55:27,552 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:55:28,552 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:55:29,126 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: partial_history
+2025-05-31 18:55:29,126 DEBUG   SenderThread:228177 [sender.py:send():391] send: history
+2025-05-31 18:55:29,127 DEBUG   SenderThread:228177 [sender.py:send_request():418] send_request: summary_record
+2025-05-31 18:55:29,127 INFO    SenderThread:228177 [sender.py:_save_file():1466] saving file wandb-summary.json with policy end
+2025-05-31 18:55:29,341 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/wandb-summary.json
+2025-05-31 18:55:29,530 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: status_report
+2025-05-31 18:55:29,552 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:55:30,552 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:55:31,341 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/output.log
+2025-05-31 18:55:31,552 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:55:32,552 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:55:33,552 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:55:33,669 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: partial_history
+2025-05-31 18:55:33,669 DEBUG   SenderThread:228177 [sender.py:send():391] send: history
+2025-05-31 18:55:33,670 DEBUG   SenderThread:228177 [sender.py:send_request():418] send_request: summary_record
+2025-05-31 18:55:33,671 INFO    SenderThread:228177 [sender.py:_save_file():1466] saving file wandb-summary.json with policy end
+2025-05-31 18:55:34,342 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/wandb-summary.json
+2025-05-31 18:55:34,552 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:55:35,342 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/output.log
+2025-05-31 18:55:35,530 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: status_report
+2025-05-31 18:55:35,552 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:55:36,552 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:55:37,552 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:55:38,221 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: partial_history
+2025-05-31 18:55:38,222 DEBUG   SenderThread:228177 [sender.py:send():391] send: history
+2025-05-31 18:55:38,222 DEBUG   SenderThread:228177 [sender.py:send_request():418] send_request: summary_record
+2025-05-31 18:55:38,222 INFO    SenderThread:228177 [sender.py:_save_file():1466] saving file wandb-summary.json with policy end
+2025-05-31 18:55:38,343 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/wandb-summary.json
+2025-05-31 18:55:38,553 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:55:39,343 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/output.log
+2025-05-31 18:55:39,531 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: stop_status
+2025-05-31 18:55:39,531 DEBUG   SenderThread:228177 [sender.py:send_request():418] send_request: stop_status
+2025-05-31 18:55:39,572 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:55:40,553 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:55:40,636 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: status_report
+2025-05-31 18:55:41,553 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:55:42,553 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:55:43,189 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: partial_history
+2025-05-31 18:55:43,190 DEBUG   SenderThread:228177 [sender.py:send():391] send: history
+2025-05-31 18:55:43,190 DEBUG   SenderThread:228177 [sender.py:send_request():418] send_request: summary_record
+2025-05-31 18:55:43,190 INFO    SenderThread:228177 [sender.py:_save_file():1466] saving file wandb-summary.json with policy end
+2025-05-31 18:55:43,344 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/wandb-summary.json
+2025-05-31 18:55:43,553 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:55:44,553 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:55:45,345 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/output.log
+2025-05-31 18:55:45,553 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:55:46,530 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: status_report
+2025-05-31 18:55:46,553 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:55:47,553 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:55:48,448 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: partial_history
+2025-05-31 18:55:48,449 DEBUG   SenderThread:228177 [sender.py:send():391] send: history
+2025-05-31 18:55:48,449 DEBUG   SenderThread:228177 [sender.py:send_request():418] send_request: summary_record
+2025-05-31 18:55:48,449 INFO    SenderThread:228177 [sender.py:_save_file():1466] saving file wandb-summary.json with policy end
+2025-05-31 18:55:48,553 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:55:49,346 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/wandb-summary.json
+2025-05-31 18:55:49,346 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/output.log
+2025-05-31 18:55:49,554 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:55:50,554 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:55:51,531 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: status_report
+2025-05-31 18:55:51,554 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:55:52,554 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:55:53,000 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: partial_history
+2025-05-31 18:55:53,001 DEBUG   SenderThread:228177 [sender.py:send():391] send: history
+2025-05-31 18:55:53,001 DEBUG   SenderThread:228177 [sender.py:send_request():418] send_request: summary_record
+2025-05-31 18:55:53,001 INFO    SenderThread:228177 [sender.py:_save_file():1466] saving file wandb-summary.json with policy end
+2025-05-31 18:55:53,347 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/wandb-summary.json
+2025-05-31 18:55:53,394 DEBUG   SenderThread:228177 [sender.py:send():391] send: stats
+2025-05-31 18:55:53,554 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:55:54,531 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: stop_status
+2025-05-31 18:55:54,531 DEBUG   SenderThread:228177 [sender.py:send_request():418] send_request: stop_status
+2025-05-31 18:55:54,572 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:55:55,347 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/output.log
+2025-05-31 18:55:55,554 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:55:56,554 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:55:56,673 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: status_report
+2025-05-31 18:55:57,554 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:55:57,578 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: partial_history
+2025-05-31 18:55:57,579 DEBUG   SenderThread:228177 [sender.py:send():391] send: history
+2025-05-31 18:55:57,579 DEBUG   SenderThread:228177 [sender.py:send_request():418] send_request: summary_record
+2025-05-31 18:55:57,579 INFO    SenderThread:228177 [sender.py:_save_file():1466] saving file wandb-summary.json with policy end
+2025-05-31 18:55:58,348 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/wandb-summary.json
+2025-05-31 18:55:58,554 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:55:59,348 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/output.log
+2025-05-31 18:55:59,554 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:56:00,555 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:56:01,555 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:56:02,531 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: status_report
+2025-05-31 18:56:02,555 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:56:02,741 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: partial_history
+2025-05-31 18:56:02,741 DEBUG   SenderThread:228177 [sender.py:send():391] send: history
+2025-05-31 18:56:02,742 DEBUG   SenderThread:228177 [sender.py:send_request():418] send_request: summary_record
+2025-05-31 18:56:02,742 INFO    SenderThread:228177 [sender.py:_save_file():1466] saving file wandb-summary.json with policy end
+2025-05-31 18:56:02,784 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: server_info
+2025-05-31 18:56:02,785 DEBUG   SenderThread:228177 [sender.py:send():391] send: telemetry
+2025-05-31 18:56:02,785 DEBUG   SenderThread:228177 [sender.py:send_request():418] send_request: server_info
+2025-05-31 18:56:02,849 DEBUG   SenderThread:228177 [sender.py:send():391] send: exit
+2025-05-31 18:56:02,849 INFO    SenderThread:228177 [sender.py:send_exit():598] handling exit code: 0
+2025-05-31 18:56:02,849 INFO    SenderThread:228177 [sender.py:send_exit():600] handling runtime: 219
+2025-05-31 18:56:02,849 INFO    SenderThread:228177 [sender.py:_save_file():1466] saving file wandb-summary.json with policy end
+2025-05-31 18:56:02,849 INFO    SenderThread:228177 [sender.py:send_exit():606] send defer
+2025-05-31 18:56:02,849 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: defer
+2025-05-31 18:56:02,849 INFO    HandlerThread:228177 [handler.py:handle_request_defer():184] handle defer: 0
+2025-05-31 18:56:02,850 DEBUG   SenderThread:228177 [sender.py:send_request():418] send_request: defer
+2025-05-31 18:56:02,850 INFO    SenderThread:228177 [sender.py:send_request_defer():622] handle sender defer: 0
+2025-05-31 18:56:02,850 INFO    SenderThread:228177 [sender.py:transition_state():626] send defer: 1
+2025-05-31 18:56:02,850 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: defer
+2025-05-31 18:56:02,850 INFO    HandlerThread:228177 [handler.py:handle_request_defer():184] handle defer: 1
+2025-05-31 18:56:02,850 DEBUG   SenderThread:228177 [sender.py:send_request():418] send_request: defer
+2025-05-31 18:56:02,850 INFO    SenderThread:228177 [sender.py:send_request_defer():622] handle sender defer: 1
+2025-05-31 18:56:02,850 INFO    SenderThread:228177 [sender.py:transition_state():626] send defer: 2
+2025-05-31 18:56:02,850 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: defer
+2025-05-31 18:56:02,850 INFO    HandlerThread:228177 [handler.py:handle_request_defer():184] handle defer: 2
+2025-05-31 18:56:02,850 INFO    HandlerThread:228177 [system_monitor.py:finish():203] Stopping system monitor
+2025-05-31 18:56:02,851 DEBUG   SystemMonitor:228177 [system_monitor.py:_start():179] Finished system metrics aggregation loop
+2025-05-31 18:56:02,851 INFO    HandlerThread:228177 [interfaces.py:finish():200] Joined cpu monitor
+2025-05-31 18:56:02,851 DEBUG   SystemMonitor:228177 [system_monitor.py:_start():183] Publishing last batch of metrics
+2025-05-31 18:56:02,851 INFO    HandlerThread:228177 [interfaces.py:finish():200] Joined disk monitor
+2025-05-31 18:56:02,942 INFO    HandlerThread:228177 [interfaces.py:finish():200] Joined gpu monitor
+2025-05-31 18:56:02,942 INFO    HandlerThread:228177 [interfaces.py:finish():200] Joined memory monitor
+2025-05-31 18:56:02,942 INFO    HandlerThread:228177 [interfaces.py:finish():200] Joined network monitor
+2025-05-31 18:56:02,942 DEBUG   SenderThread:228177 [sender.py:send_request():418] send_request: defer
+2025-05-31 18:56:02,942 INFO    SenderThread:228177 [sender.py:send_request_defer():622] handle sender defer: 2
+2025-05-31 18:56:02,942 INFO    SenderThread:228177 [sender.py:transition_state():626] send defer: 3
+2025-05-31 18:56:02,942 DEBUG   SenderThread:228177 [sender.py:send():391] send: stats
+2025-05-31 18:56:02,943 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: defer
+2025-05-31 18:56:02,943 INFO    HandlerThread:228177 [handler.py:handle_request_defer():184] handle defer: 3
+2025-05-31 18:56:02,943 DEBUG   SenderThread:228177 [sender.py:send_request():418] send_request: defer
+2025-05-31 18:56:02,943 INFO    SenderThread:228177 [sender.py:send_request_defer():622] handle sender defer: 3
+2025-05-31 18:56:02,943 INFO    SenderThread:228177 [sender.py:transition_state():626] send defer: 4
+2025-05-31 18:56:02,943 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: defer
+2025-05-31 18:56:02,943 INFO    HandlerThread:228177 [handler.py:handle_request_defer():184] handle defer: 4
+2025-05-31 18:56:02,944 DEBUG   SenderThread:228177 [sender.py:send_request():418] send_request: defer
+2025-05-31 18:56:02,944 INFO    SenderThread:228177 [sender.py:send_request_defer():622] handle sender defer: 4
+2025-05-31 18:56:02,944 INFO    SenderThread:228177 [sender.py:transition_state():626] send defer: 5
+2025-05-31 18:56:02,944 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: defer
+2025-05-31 18:56:02,944 INFO    HandlerThread:228177 [handler.py:handle_request_defer():184] handle defer: 5
+2025-05-31 18:56:02,944 DEBUG   SenderThread:228177 [sender.py:send():391] send: summary
+2025-05-31 18:56:02,944 INFO    SenderThread:228177 [sender.py:_save_file():1466] saving file wandb-summary.json with policy end
+2025-05-31 18:56:02,945 DEBUG   SenderThread:228177 [sender.py:send_request():418] send_request: defer
+2025-05-31 18:56:02,945 INFO    SenderThread:228177 [sender.py:send_request_defer():622] handle sender defer: 5
+2025-05-31 18:56:02,945 INFO    SenderThread:228177 [sender.py:transition_state():626] send defer: 6
+2025-05-31 18:56:02,945 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: defer
+2025-05-31 18:56:02,945 INFO    HandlerThread:228177 [handler.py:handle_request_defer():184] handle defer: 6
+2025-05-31 18:56:02,945 DEBUG   SenderThread:228177 [sender.py:send_request():418] send_request: defer
+2025-05-31 18:56:02,945 INFO    SenderThread:228177 [sender.py:send_request_defer():622] handle sender defer: 6
+2025-05-31 18:56:02,949 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: status_report
+2025-05-31 18:56:03,022 INFO    SenderThread:228177 [sender.py:transition_state():626] send defer: 7
+2025-05-31 18:56:03,022 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: defer
+2025-05-31 18:56:03,022 INFO    HandlerThread:228177 [handler.py:handle_request_defer():184] handle defer: 7
+2025-05-31 18:56:03,022 DEBUG   SenderThread:228177 [sender.py:send_request():418] send_request: defer
+2025-05-31 18:56:03,022 INFO    SenderThread:228177 [sender.py:send_request_defer():622] handle sender defer: 7
+2025-05-31 18:56:03,349 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/config.yaml
+2025-05-31 18:56:03,349 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/wandb-summary.json
+2025-05-31 18:56:03,350 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/output.log
+2025-05-31 18:56:03,849 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: poll_exit
+2025-05-31 18:56:04,956 INFO    SenderThread:228177 [sender.py:transition_state():626] send defer: 8
+2025-05-31 18:56:04,956 DEBUG   SenderThread:228177 [sender.py:send_request():418] send_request: poll_exit
+2025-05-31 18:56:04,957 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: defer
+2025-05-31 18:56:04,957 INFO    HandlerThread:228177 [handler.py:handle_request_defer():184] handle defer: 8
+2025-05-31 18:56:04,957 DEBUG   SenderThread:228177 [sender.py:send_request():418] send_request: defer
+2025-05-31 18:56:04,957 INFO    SenderThread:228177 [sender.py:send_request_defer():622] handle sender defer: 8
+2025-05-31 18:56:04,957 INFO    SenderThread:228177 [job_builder.py:build():443] Attempting to build job artifact
+2025-05-31 18:56:04,957 INFO    SenderThread:228177 [job_builder.py:_get_source_type():572] is repo sourced job
+2025-05-31 18:56:04,960 INFO    SenderThread:228177 [job_builder.py:build():548] adding wandb-job metadata file
+2025-05-31 18:56:04,978 INFO    SenderThread:228177 [sender.py:transition_state():626] send defer: 9
+2025-05-31 18:56:04,979 DEBUG   SenderThread:228177 [sender.py:send():391] send: artifact
+2025-05-31 18:56:04,980 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: defer
+2025-05-31 18:56:04,980 INFO    HandlerThread:228177 [handler.py:handle_request_defer():184] handle defer: 9
+2025-05-31 18:56:05,350 INFO    Thread-73 :228177 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/output.log
+2025-05-31 18:56:05,364 INFO    SenderThread:228177 [sender.py:send_artifact():1549] sent artifact job-https___github.com_Dwivedi07_MPC_based_Reachability.git_main_train_prog.py - {'id': 'QXJ0aWZhY3Q6MTc3NjU5MzEzNQ==', 'state': 'COMMITTED', 'artifactSequence': {'id': 'QXJ0aWZhY3RDb2xsZWN0aW9uOjY0NjUwNDg5Ng==', 'latestArtifact': {'id': 'QXJ0aWZhY3Q6MTc3NjU5MzEzNQ==', 'versionIndex': 1}}}
+2025-05-31 18:56:05,364 DEBUG   SenderThread:228177 [sender.py:send_request():418] send_request: defer
+2025-05-31 18:56:05,365 INFO    SenderThread:228177 [sender.py:send_request_defer():622] handle sender defer: 9
+2025-05-31 18:56:05,365 INFO    SenderThread:228177 [dir_watcher.py:finish():358] shutting down directory watcher
+2025-05-31 18:56:05,849 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: poll_exit
+2025-05-31 18:56:06,350 INFO    SenderThread:228177 [dir_watcher.py:finish():388] scan: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files
+2025-05-31 18:56:06,350 INFO    SenderThread:228177 [dir_watcher.py:finish():402] scan save: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/output.log output.log
+2025-05-31 18:56:06,350 INFO    SenderThread:228177 [dir_watcher.py:finish():402] scan save: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/requirements.txt requirements.txt
+2025-05-31 18:56:06,352 INFO    SenderThread:228177 [dir_watcher.py:finish():402] scan save: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/config.yaml config.yaml
+2025-05-31 18:56:06,355 INFO    SenderThread:228177 [dir_watcher.py:finish():402] scan save: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/wandb-summary.json wandb-summary.json
+2025-05-31 18:56:06,357 INFO    SenderThread:228177 [dir_watcher.py:finish():402] scan save: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/wandb-metadata.json wandb-metadata.json
+2025-05-31 18:56:06,357 INFO    SenderThread:228177 [dir_watcher.py:finish():402] scan save: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/conda-environment.yaml conda-environment.yaml
+2025-05-31 18:56:06,359 INFO    SenderThread:228177 [sender.py:transition_state():626] send defer: 10
+2025-05-31 18:56:06,359 DEBUG   SenderThread:228177 [sender.py:send_request():418] send_request: poll_exit
+2025-05-31 18:56:06,360 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: defer
+2025-05-31 18:56:06,362 INFO    HandlerThread:228177 [handler.py:handle_request_defer():184] handle defer: 10
+2025-05-31 18:56:06,362 DEBUG   SenderThread:228177 [sender.py:send_request():418] send_request: defer
+2025-05-31 18:56:06,362 INFO    SenderThread:228177 [sender.py:send_request_defer():622] handle sender defer: 10
+2025-05-31 18:56:06,362 INFO    SenderThread:228177 [file_pusher.py:finish():169] shutting down file pusher
+2025-05-31 18:56:06,667 INFO    wandb-upload_2:228177 [upload_job.py:push():130] Uploaded file /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/config.yaml
+2025-05-31 18:56:06,675 INFO    wandb-upload_3:228177 [upload_job.py:push():130] Uploaded file /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/wandb-summary.json
+2025-05-31 18:56:06,679 INFO    wandb-upload_0:228177 [upload_job.py:push():130] Uploaded file /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/output.log
+2025-05-31 18:56:06,700 INFO    wandb-upload_1:228177 [upload_job.py:push():130] Uploaded file /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/requirements.txt
+2025-05-31 18:56:06,710 INFO    wandb-upload_4:228177 [upload_job.py:push():130] Uploaded file /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/files/conda-environment.yaml
+2025-05-31 18:56:06,849 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: poll_exit
+2025-05-31 18:56:06,850 DEBUG   SenderThread:228177 [sender.py:send_request():418] send_request: poll_exit
+2025-05-31 18:56:06,910 INFO    Thread-72 (_thread_body):228177 [sender.py:transition_state():626] send defer: 11
+2025-05-31 18:56:06,910 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: defer
+2025-05-31 18:56:06,910 INFO    HandlerThread:228177 [handler.py:handle_request_defer():184] handle defer: 11
+2025-05-31 18:56:06,910 DEBUG   SenderThread:228177 [sender.py:send_request():418] send_request: defer
+2025-05-31 18:56:06,911 INFO    SenderThread:228177 [sender.py:send_request_defer():622] handle sender defer: 11
+2025-05-31 18:56:06,911 INFO    SenderThread:228177 [file_pusher.py:join():175] waiting for file pusher
+2025-05-31 18:56:06,911 INFO    SenderThread:228177 [sender.py:transition_state():626] send defer: 12
+2025-05-31 18:56:06,911 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: defer
+2025-05-31 18:56:06,911 INFO    HandlerThread:228177 [handler.py:handle_request_defer():184] handle defer: 12
+2025-05-31 18:56:06,911 DEBUG   SenderThread:228177 [sender.py:send_request():418] send_request: defer
+2025-05-31 18:56:06,911 INFO    SenderThread:228177 [sender.py:send_request_defer():622] handle sender defer: 12
+2025-05-31 18:56:06,911 INFO    SenderThread:228177 [file_stream.py:finish():601] file stream finish called
+2025-05-31 18:56:06,995 INFO    SenderThread:228177 [file_stream.py:finish():605] file stream finish is done
+2025-05-31 18:56:06,995 INFO    SenderThread:228177 [sender.py:transition_state():626] send defer: 13
+2025-05-31 18:56:06,996 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: defer
+2025-05-31 18:56:06,996 INFO    HandlerThread:228177 [handler.py:handle_request_defer():184] handle defer: 13
+2025-05-31 18:56:06,996 DEBUG   SenderThread:228177 [sender.py:send_request():418] send_request: defer
+2025-05-31 18:56:06,996 INFO    SenderThread:228177 [sender.py:send_request_defer():622] handle sender defer: 13
+2025-05-31 18:56:06,996 INFO    SenderThread:228177 [sender.py:transition_state():626] send defer: 14
+2025-05-31 18:56:06,996 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: defer
+2025-05-31 18:56:06,996 INFO    HandlerThread:228177 [handler.py:handle_request_defer():184] handle defer: 14
+2025-05-31 18:56:06,996 DEBUG   SenderThread:228177 [sender.py:send():391] send: final
+2025-05-31 18:56:06,997 DEBUG   SenderThread:228177 [sender.py:send():391] send: footer
+2025-05-31 18:56:06,997 DEBUG   SenderThread:228177 [sender.py:send_request():418] send_request: defer
+2025-05-31 18:56:06,997 INFO    SenderThread:228177 [sender.py:send_request_defer():622] handle sender defer: 14
+2025-05-31 18:56:06,997 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: poll_exit
+2025-05-31 18:56:06,997 DEBUG   SenderThread:228177 [sender.py:send_request():418] send_request: poll_exit
+2025-05-31 18:56:06,998 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: internal_messages
+2025-05-31 18:56:06,998 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: get_summary
+2025-05-31 18:56:06,999 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: sampled_history
+2025-05-31 18:56:07,000 DEBUG   HandlerThread:228177 [handler.py:handle_request():158] handle_request: shutdown
+2025-05-31 18:56:07,000 INFO    HandlerThread:228177 [handler.py:finish():880] shutting down handler
+2025-05-31 18:56:07,997 INFO    WriterThread:228177 [datastore.py:close():296] close: /home/arpit/MPC_based_Reachability/wandb/run-20250531_185223-e29z4037/run-e29z4037.wandb
+2025-05-31 18:56:07,998 INFO    SenderThread:228177 [sender.py:finish():1631] shutting down sender
+2025-05-31 18:56:07,998 INFO    SenderThread:228177 [file_pusher.py:finish():169] shutting down file pusher
+2025-05-31 18:56:07,998 INFO    SenderThread:228177 [file_pusher.py:join():175] waiting for file pusher

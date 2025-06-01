@@ -1,22 +1,37 @@
 import torch
 import numpy as np
 import matplotlib.pyplot as plt
-from utils.model import SingleBVPNet
 import matplotlib.lines as mlines
 
+from utils.model import SingleBVPNet
+from mpc.mpc_rollout import VerticalDroneDynamics 
 # ----------------------------
 # Settings
 # ----------------------------
-checkpoint_path = 'model_checkpoints/stage_1_best_N100.pt'  # Update if needed
+checkpoint_path = 'model_checkpoints_prog/stage_1_progressive_5_best.pt'  # Update if needed
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-T = 0.9 # Final time
-K = 12.0  # Fixed gain
+T = 0.9 # start time
+T_end = 1.20 # final time
+K = 5.0  # Fixed gain
+dynamics = VerticalDroneDynamics(device=device)
 
 # Grid setup
 z_vals = np.linspace(-0.5, 3.5, 200)
 vz_vals = np.linspace(-4.0, 4.0, 200)
-Z, VZ = np.meshgrid(z_vals, vz_vals)
+VZ, Z = np.meshgrid(vz_vals, z_vals) 
 input_points = np.stack([Z.ravel(), VZ.ravel()], axis=1)  # Shape: [N, 2]
+
+# Add K to each point to get shape [N, 3]
+K_vals = np.full((input_points.shape[0], 1), K)
+input_points_with_K_np = np.hstack([input_points, K_vals])  # Shape: [N, 3]
+
+# Convert to PyTorch tensor
+input_points_with_K = torch.tensor(input_points_with_K_np, dtype=torch.float32).to(device)
+
+# Compute l(x)
+l_x = dynamics.compute_l(input_points_with_K)  # Shape: [N]
+T_tensor_end = torch.tensor(T_end, dtype=torch.float32).to(device)
+T_tensor = torch.tensor(T, dtype=torch.float32).to(device)
 
 # Add K and t to each point
 K_array = np.full((input_points.shape[0], 1), K)
@@ -36,10 +51,12 @@ model = SingleBVPNet(
 model.load_state_dict(torch.load(checkpoint_path, map_location=device))
 model.eval()
 
-
+# Calculate the Value function 
 with torch.no_grad():
-    V_hat = model(input_tensor).cpu().numpy().reshape(Z.shape)
+    O_pred = model(input_tensor)
 
+V_hat = l_x.unsqueeze(1) + (T_tensor_end - T_tensor) * O_pred
+V_hat = V_hat.cpu().numpy().reshape(Z.shape)
 
 # Plot
 plt.figure(figsize=(8, 6))

@@ -35,7 +35,7 @@ train_from_checkpoint = False
 train_from_begining = True
 use_wandb = True
 
-NUM_STAGES = 2
+NUM_STAGES = 4
 num_epochs = 50
 prev_models = []
 N_p = 5                 # Number of progressive steps per stage
