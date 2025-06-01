@@ -27,10 +27,11 @@ This is the main script that orchestrates the training process.
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 print(f"Using device: {device}")
-save_dir = f"model_checkpoints"  # f"model_checkpoints_prog"
+save_dir =f"model_checkpoints_prog" 
+# save_dir = f"model_checkpoints"  
 os.makedirs(save_dir, exist_ok=True)
 
-MPCdata_visual = False
+MPCdata_visual = True
 train_from_checkpoint = False
 train_from_begining = True
 use_wandb = True

@@ -37,7 +37,8 @@ t_tensor = torch.tensor(T_array, dtype=torch.float32).to(device)  # [N, 1]
 # ----------------------------
 models = []
 for stage in range(1, num_stages+1): 
-    path = f'model_checkpoints_prog/stage_{stage}_progressive_5_best.pt'
+    path = f'model_checkpoints/stage_{stage}_progressive_5_best.pt'
+    # path = f'model_checkpoints_prog/stage_{stage}_progressive_5_best.pt'
     model = SingleBVPNet(
         in_features=4,
         out_features=1,
@@ -74,5 +75,6 @@ fail_proxy = mlines.Line2D([], [], color='red', linestyle='--', label='Failure s
 plt.legend(handles=[safe_proxy, fail_proxy], loc='upper right')
 
 plt.tight_layout()
-plt.savefig(f'outputs/stage_{num_stages}_prog.png')
+plt.savefig(f'outputs/stage_{num_stages}_prog_random.png')
+# plt.savefig(f'outputs/stage_{num_stages}_prog.png')
 plt.show()
