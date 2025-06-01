@@ -26,7 +26,7 @@ class MPCDataset(Dataset):
 
 # ----------------------------
 def dataset_loading(dynamics, stage=1, prev_models=None, device='cuda'):
-    path = f"dataset/stage{stage}/dataset.pkl"
+    path = f"dataset/stage{stage}/dataset_random.pkl"
     os.makedirs(os.path.dirname(path), exist_ok=True)
     return_trajectories = True
 
@@ -52,7 +52,7 @@ def dataset_loading(dynamics, stage=1, prev_models=None, device='cuda'):
                     device=device,
                     prev_stage_models= prev_models,
                     return_trajectories=return_trajectories,
-                    use_grid_sampling = True
+                    use_grid_sampling = False
                 )
         print(f"Generated {len(samples)} samples.")
 

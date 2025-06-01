@@ -12,10 +12,11 @@ from utils.util import compute_value_function_stagewise
 # Settings
 # ----------------------------
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-T = 0.6 # Start time
+T = 0.0 # Start time
 T_end = 1.2 # Final time
+mT = T - T_end
 K = 12.0  # Fixed gain
-num_stages = 2
+num_stages = 4
 dynamics = VerticalDroneDynamics(device=device)
 # ----------------------------
 # Grid setup
@@ -65,7 +66,7 @@ plt.axhline(y=3.0, color='red', linestyle='--', linewidth=2)
 # labels
 plt.xlabel('$v_z$ (velocity)')
 plt.ylabel('$z$ (height)')
-plt.title('Value Function Heatmap with Safe and Failure Boundaries')
+plt.title(f'V(x,T = {mT:.2f}):Value Function Heatmap with Safe and Failure Boundaries')
 
 # legend
 safe_proxy = mlines.Line2D([], [], color='black', linestyle='-', label='Safe set boundary ($\\hat{V}=0$)')

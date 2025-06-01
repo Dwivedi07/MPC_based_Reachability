@@ -33,10 +33,11 @@ def compute_value_function_stagewise(x, t, dynamics, models):
     for i, model in enumerate(models):  
         stage = i + 1
         T_end = dynamics.T_terminals[stage].to(x.device)       
-        T_start = dynamics.T_terminals[stage+1].to(x.device) 
-
-        if T_i > T_start.item() and T_i <= T_end.item():
+        T_start = dynamics.T_terminals[stage+1].to(x.device) if stage < len(models) else torch.tensor(0.0).to(device)
+       
+        if T_start.item() <= T_i and T_i <= T_end.item():
             # In this stage
+            print('This value is in stage', stage)
             delta_T = T_end - T_i
             input_tensor = torch.cat([x, t], dim=1)  # t has same value across batch
             with torch.no_grad():
@@ -46,6 +47,7 @@ def compute_value_function_stagewise(x, t, dynamics, models):
 
         else:
             # Outside this stage — use full duration of model
+            print('Overpassing the stage', stage)
             input_tensor = torch.cat([x, T_start.expand(x.shape[0], 1)], dim=1)
             with torch.no_grad(): 
                 O_pred = model(input_tensor) # prediction at start point stamp as not in this stage
@@ -77,7 +79,6 @@ def compute_recursive_value(x, t, dynamics, models):
     for i, model in enumerate(models):  # stages 1 to current-1
         stage_i = i + 1
         T_ip1 = T_terminals[stage_i+1].to(x.device).expand(x.shape[0], 1)
-        # print('This is T_ip1', T_ip1)
         input_tensor = torch.cat([x, T_ip1], dim=1) # O_thistage eval at terminal of prev state
         with torch.no_grad():
             O_pred = model(input_tensor)
@@ -214,3 +215,52 @@ def generate_dataset(dynamics, size, N, R, H, u_std, stage, device, prev_stage_m
         return samples, all_trajs, all_controls
     else:
         return samples
+
+def visualize_dataset(dataset, stage, K_min = 1.0, K_max = 12.0):
+    """
+    Visualize a heatmap of the value function V_hat over (z, vz),
+    for points where K in [K_min, K_max].
+
+    Args:
+        dataset: MPCDataset
+    """
+    z_vals, vz_vals, V_vals = [], [], []
+
+    for i in range(len(dataset)):
+        sample = dataset[i]
+        x = sample['x']
+        V_hat = sample['V_hat'].item()
+        
+        z, vz, K = x.tolist()
+        if K_min <= K <= K_max:
+            z_vals.append(z)
+            vz_vals.append(vz)
+            V_vals.append(V_hat)
+
+    if not z_vals:
+        print(f"No datapoints found with K in [{K_min}, {K_max}]")
+        return
+
+    # Convert to numpy arrays for heatmap plotting
+    z_vals = np.array(z_vals)
+    vz_vals = np.array(vz_vals)
+    V_vals = np.array(V_vals)
+
+    # Create heatmap grid using scatter plot + interpolation
+    plt.figure(figsize=(8, 6))
+    scatter = plt.scatter(vz_vals, z_vals, c=V_vals, cmap='viridis', s=10)
+    plt.colorbar(scatter, label=r'$\hat{V}$(z, v_z)')
+    
+    plt.axhline(0, color='gray', linestyle='--', linewidth=0.5)
+    plt.axhline(3.0, color='gray', linestyle='--', linewidth=0.5)
+    plt.axhspan(-1, 0, color='red', alpha=0.1, label="Failure Region")
+    plt.axhspan(3, 4, color='red', alpha=0.1)
+
+    plt.ylabel('z (height)')
+    plt.xlabel(r'$v_z$ (vertical velocity)')
+    plt.title(r'Value Function Heatmap over (z, $v_z$)$')
+    plt.legend()
+    plt.grid(True)
+    plt.tight_layout()
+    plt.show()
+    plt.savefig(f'outputs/MPCdataset{stage}.png')

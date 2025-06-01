@@ -1,6 +1,6 @@
 from utils.datsetio import dataset_loading
 from utils.model import SingleBVPNet
-from utils.util import compute_recursive_value
+from utils.util import compute_recursive_value, visualize_dataset
 from mpc.mpc_rollout import VerticalDroneDynamics
 
 import torch
@@ -27,7 +27,7 @@ This is the main script that orchestrates the training process.
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 print(f"Using device: {device}")
-save_dir = f"model_checkpoints_prog"
+save_dir = f"model_checkpoints"  # f"model_checkpoints_prog"
 os.makedirs(save_dir, exist_ok=True)
 
 MPCdata_visual = False
@@ -50,6 +50,8 @@ for stage in range(1, NUM_STAGES + 1):
     # we will feed the previous stage model in data generation process and also for terminal bounary constraint in training
     dataset = dataset_loading(dynamics, stage, prev_models, device=device)
     T_s = dynamics.T_terminals[stage].item()
+    if MPCdata_visual:
+        visualize_dataset(dataset, stage)
 
     for prog_i in range(1, N_p+1):
         t_min = T_s - (prog_i * H / N_p)
@@ -103,7 +105,7 @@ for stage in range(1, NUM_STAGES + 1):
             ##### Initialize wandb
             if use_wandb:
                 wandb.init(
-                    project="value-function-reachability-progreesive",
+                    project="value-function-reachability-progreesive-random",
                     name=f"Stage-{stage}-prog-stage-{prog_i}",
                     config={
                         "learning_rate": 2e-5,
