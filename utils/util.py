@@ -87,7 +87,7 @@ def generate_dataset(dynamics, size, N, R, H, u_std, stage, device, prev_stage_m
 
         for _ in range(R):
             u_nom_expanded = u_nom[None, :].expand(N, H_rollout)  # [N, H_r]
-            noise = u_std * torch.randn(N, H_rollout, device=device)
+            noise = u_std * torch.randn(N, H_rollout, device=device) # std* mean zero and variance 1 guassian distr
             u_samples = torch.clamp(u_nom_expanded + noise, -1.0, 1.0)  # [N, H_r]
 
             xi_n = x_i.expand(N, 3)  # [N, 3]

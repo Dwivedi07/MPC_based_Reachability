@@ -7,7 +7,7 @@ import matplotlib.lines as mlines
 # ----------------------------
 # Settings
 # ----------------------------
-checkpoint_path = 'model_checkpoints/stage_1_best.pt'  # Update if needed
+checkpoint_path = 'model_checkpoints/stage_1_best_N100.pt'  # Update if needed
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 T = 0.9 # Final time
 K = 12.0  # Fixed gain

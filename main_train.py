@@ -25,31 +25,19 @@ This is the main script that orchestrates the training process.
 3. It uses the trained model for the next stage.
 '''
 
-NUM_STAGES = 1
-prev_models = []
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+print(f"Using device: {device}")
+
+
+MPCdata_visual = False
 train_from_checkpoint = False
 train_from_begining = True
 use_wandb = True
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-print(f"Using device: {device}")
+
+NUM_STAGES = 1
+prev_models = []
 dynamics = VerticalDroneDynamics(device=device)
 
-def wait_for_gpu_cooldown(threshold_temp=78, wait_seconds=80, gpu_id=0):
-    while True:
-        try:
-            result = subprocess.check_output(
-                f"nvidia-smi --query-gpu=temperature.gpu --format=csv,noheader,nounits -i {gpu_id}",
-                shell=True
-            )
-            temp = int(result.decode("utf-8").strip())
-            if temp > threshold_temp:
-                print(f" GPU temperature is {temp}°C — waiting {wait_seconds} seconds to cool down...")
-                time.sleep(wait_seconds)
-            else:
-                break
-        except Exception as e:
-            print(f"Error checking GPU temperature: {e}")
-            break
 
 for stage in range(1, NUM_STAGES + 1):
     print(f"\n--- Stage {stage} ---")
@@ -62,7 +50,11 @@ for stage in range(1, NUM_STAGES + 1):
     train_dataset, val_dataset = torch.utils.data.random_split(dataset, [train_size, val_size])
     train_dataloader = DataLoader(train_dataset, batch_size=32, shuffle=True)
     val_dataloader = DataLoader(val_dataset, batch_size=32, shuffle=False)
-
+    
+    # for visualization of MPC sample collected
+    if MPCdata_visual:
+        raise NotImplementedError
+    
     # print some samples of train dataset
     # for i in range(10):
     #     sample = train_dataset[i]

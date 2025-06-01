@@ -37,15 +37,15 @@ def dataset_loading(dynamics, stage=1, prev_models=None, device='cuda'):
     else:
         print(f"Generating dataset from stage {stage} and saving to: {path}")
         '''
-        IN paper H_R = 0.2 sec with dt = 0.02 sec so each rollout 100 steps
+        IN paper H_R = 0.2 sec with dt = 0.02 sec so each rollout 10 steps
         safe set converges in 1.2 second
-        we will use 0.3 as horizon length for each stage with H = 100 steps with dt 0.03
+        we will use 0.3 as horizon length for each stage with H = 30 max steps with dt 0.01
         '''
         samples, all_trajs, all_controls = generate_dataset(
                     dynamics=dynamics,
-                    size=1000,
-                    N=100,
-                    R=20,
+                    size=700,
+                    N=800,
+                    R=30,
                     H=30,  
                     u_std=0.1,
                     stage= stage,
