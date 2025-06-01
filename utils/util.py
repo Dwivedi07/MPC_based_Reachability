@@ -216,7 +216,7 @@ def generate_dataset(dynamics, size, N, R, H, u_std, stage, device, prev_stage_m
     else:
         return samples
 
-def visualize_dataset(dataset, stage, K_min = 1.0, K_max = 12.0):
+def visualize_dataset(dataset, stage, K_min = 11.0, K_max = 12.0):
     """
     Visualize a heatmap of the value function V_hat over (z, vz),
     for points where K in [K_min, K_max].
@@ -264,3 +264,4 @@ def visualize_dataset(dataset, stage, K_min = 1.0, K_max = 12.0):
     plt.tight_layout()
     plt.show()
     plt.savefig(f'outputs/MPCdataset{stage}.png')
+    # plt.savefig(f'outputs/MPCdataset{stage}_random.png')
