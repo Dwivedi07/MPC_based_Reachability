@@ -34,10 +34,10 @@ Drone
     u_std=0.1
 '''
 dynamics = VerticalDroneDynamics(device=device)
-
-# save_dir =f"model_checkpoints_grid_search" 
-save_dir =f"model_checkpoints_grid_lrm4" 
-# save_dir = f"model_checkpoints_random_search"  
+dyn_name = dynamics.__class__.__name__
+# save_dir =f"checkpoints/model_{dyn_name}_checkpoints_grid_search"   # grid search
+save_dir =f"checkpoints/model_{dyn_name}_checkpoints_random_search"   # random search
+save_dir =f"checkpoints/model_{dyn_name}_checkpoints_grid_lrm4" 
 os.makedirs(save_dir, exist_ok=True)
 
 MPCdata_visual = False 
@@ -69,7 +69,7 @@ for stage in range(1, NUM_STAGES + 1):
     val_loss_list = []
     # Load or generate dataset
     # we will feed the previous stage model in data generation process and also for terminal bounary constraint in training
-    dataset = dataset_loading(dynamics, stage, prev_models, device=device)
+    dataset = dataset_loading(dynamics, dyn_name, stage, prev_models, device=device)
     T_s = dynamics.T_terminals[stage].item()
     if MPCdata_visual:
         dynamics.visualize_dataset(dataset, stage)

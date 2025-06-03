@@ -42,20 +42,7 @@ def dataset_loading(dynamics, dyn_name, stage=1, prev_models=None, device='cuda'
         safe set converges in 1.2 second
         we will use 0.3 as horizon length for each stage with H = 30 max steps with dt 0.01
         '''
-        # samples, all_trajs, all_controls = generate_dataset(
-        #             dynamics=dynamics,
-        #             size=700,
-        #             N=800,
-        #             R=30,
-        #             H=30,  
-        #             u_std=0.1,
-        #             stage= stage,
-        #             device=device,
-        #             prev_stage_models= prev_models,
-        #             return_trajectories=return_trajectories,
-        #             use_grid_sampling = False
-        #         )
-        samples, all_trajs, all_controls = generate_dataset_multi(
+        samples, all_trajs, all_controls = generate_dataset(
                     dynamics=dynamics,
                     size=700,
                     N=800,
@@ -68,7 +55,19 @@ def dataset_loading(dynamics, dyn_name, stage=1, prev_models=None, device='cuda'
                     return_trajectories=return_trajectories,
                     use_grid_sampling = False
                 )
-        print(f"Generated {len(samples)} samples.")
+        # samples, all_trajs, all_controls = generate_dataset_multi(
+        #             dynamics=dynamics,
+        #             size=700,
+        #             N=800,
+        #             R=30,
+        #             H=30,  
+        #             u_std=0.1,
+        #             stage= stage,
+        #             device=device,
+        #             prev_stage_models= prev_models,
+        #             return_trajectories=return_trajectories,
+        #             use_grid_sampling = False
+        #         )
 
         with open(path, 'wb') as f:
             pickle.dump(samples, f)
@@ -79,7 +78,7 @@ def dataset_loading(dynamics, dyn_name, stage=1, prev_models=None, device='cuda'
             controls_to_plot = [control_tensor[r] for control_tensor in all_controls]  # list of [H_n] tensors
             dynamics.plot_trajectories_all(trajs_to_plot, controls_to_plot, stage)
 
-
+    print(f"Loaded {len(samples)} samples.")
     dataset = MPCDataset(samples)
 
     return dataset
