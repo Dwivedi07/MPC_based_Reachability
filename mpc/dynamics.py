@@ -13,6 +13,7 @@ class VerticalDroneDynamics:
         self.horizon= 0.3
         self.device = device
         self.state_dim = 3  # [z, vz, K]
+        self.input_dim = 4  # include time
         self.control_dim = 1  # u
 
         self.input_multiplier = 12.0   # K
@@ -214,6 +215,7 @@ class Quadrotor13D:
         self.dt = 0.01  
         self.horizon= 0.25
         self.state_dim = 13
+        self.input_dim = 14
         self.control_dim = 4
         self.collective_thrust_max = collective_thrust_max
         

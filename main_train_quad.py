@@ -34,7 +34,7 @@ save_dir =f"checkpoints/model_{dyn_name}_checkpoints_random_search"
 # save_dir = f"model_checkpoints_random_search"  
 os.makedirs(save_dir, exist_ok=True)
 
-MPCdata_visual = True
+MPCdata_visual = False
 train_from_checkpoint = False
 train_from_begining = True
 use_wandb = False # account expired
@@ -63,8 +63,7 @@ for stage in range(1, NUM_STAGES + 1):
     T_s = dynamics.T_terminals[stage].item()
 
     if MPCdata_visual:
-        raise NotImplementedError("MPCdata_visual is not implemented yet")
-        # visualize_dataset(dataset, stage)
+        raise NotImplementedError("MPCdata_visual is not implemented yet for Quad 13D")
         
 
     for prog_i in range(1, N_p+1):
@@ -89,7 +88,7 @@ for stage in range(1, NUM_STAGES + 1):
         with input as the state and time and K
         '''
         model = SingleBVPNet(out_features=1,  # V(state, t)
-                            in_features=4,  # z, vz, k, t
+                            in_features=dynamics.input_dim,  # state dimensionality
                             hidden_features=512, # 256 first set of training I did
                             num_hidden_layers=3).to(device)
         
