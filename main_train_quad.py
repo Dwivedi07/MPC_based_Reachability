@@ -1,7 +1,7 @@
 from utils.datsetio import dataset_loading
 from utils.model import SingleBVPNet
 from utils.util import compute_recursive_value
-from mpc.dynamics import VerticalDroneDynamics
+from mpc.dynamics import VerticalDroneDynamics, Quadrotor13D
 
 import torch
 import torch.nn as nn
@@ -26,21 +26,15 @@ This is the main script that orchestrates the training process.
 1. It generates the dataset using the MPC rollout.
 2. It trains the neural network on the generated dataset.
 3. It uses the trained model for the next stage.
-Drone
-    size=700,
-    N=800,
-    R=30,
-    H=30,  
-    u_std=0.1
 '''
-dynamics = VerticalDroneDynamics(device=device)
-
+dynamics = Quadrotor13D(device=device)
+dyn_name = dynamics.__class__.__name__
+save_dir =f"checkpoints/model_{dyn_name}_checkpoints_random_search" 
 # save_dir =f"model_checkpoints_grid_search" 
-save_dir =f"model_checkpoints_grid_lrm4" 
 # save_dir = f"model_checkpoints_random_search"  
 os.makedirs(save_dir, exist_ok=True)
 
-MPCdata_visual = False 
+MPCdata_visual = True
 train_from_checkpoint = False
 train_from_begining = True
 use_wandb = False # account expired
@@ -52,15 +46,11 @@ prev_models = []
     learning_rate: 2e-5,
     50 epochs each stage
     Np = 5 
-# second iteration:
-    learning_rate: 2e-4, 
-    50 epochs each stage
-    Np = 7
 '''
 
 H = dynamics.horizon        # Total horizon (seconds) to regress over
-lr = 2e-4  # Learning rate
-N_p = 7   # Number of progressive steps per stage
+lr = 2e-5  # Learning rate
+N_p = 5   # Number of progressive steps per stage
 num_epochs = 50
 
 for stage in range(1, NUM_STAGES + 1):
@@ -69,10 +59,13 @@ for stage in range(1, NUM_STAGES + 1):
     val_loss_list = []
     # Load or generate dataset
     # we will feed the previous stage model in data generation process and also for terminal bounary constraint in training
-    dataset = dataset_loading(dynamics, stage, prev_models, device=device)
+    dataset = dataset_loading(dynamics, dyn_name, stage, prev_models, device=device)
     T_s = dynamics.T_terminals[stage].item()
+
     if MPCdata_visual:
-        dynamics.visualize_dataset(dataset, stage)
+        raise NotImplementedError("MPCdata_visual is not implemented yet")
+        # visualize_dataset(dataset, stage)
+        
 
     for prog_i in range(1, N_p+1):
         t_min = T_s - (prog_i * H / N_p)

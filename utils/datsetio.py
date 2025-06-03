@@ -7,7 +7,7 @@ from torch.utils.data import Dataset, DataLoader
 import matplotlib.pyplot as plt
 
 from mpc.dynamics import VerticalDroneDynamics
-from utils.util import  generate_dataset
+from utils.util import  generate_dataset, generate_dataset_multi
 
 class MPCDataset(Dataset):
     def __init__(self, samples):
@@ -25,9 +25,9 @@ class MPCDataset(Dataset):
         }
 
 # ----------------------------
-def dataset_loading(dynamics, stage=1, prev_models=None, device='cuda'):
-    path = f"dataset/stage{stage}/dataset.pkl"            # grid based dataset
-    # path = f"dataset/stage{stage}/dataset_random.pkl"     # random dataset
+def dataset_loading(dynamics, dyn_name, stage=1, prev_models=None, device='cuda'):
+    # path = f"dataset/{dyn_name}/stage{stage}/dataset.pkl"            # grid based dataset
+    path = f"dataset/{dyn_name}/stage{stage}/dataset_random.pkl"     # random dataset
     os.makedirs(os.path.dirname(path), exist_ok=True)   
     return_trajectories = True
 
@@ -42,7 +42,20 @@ def dataset_loading(dynamics, stage=1, prev_models=None, device='cuda'):
         safe set converges in 1.2 second
         we will use 0.3 as horizon length for each stage with H = 30 max steps with dt 0.01
         '''
-        samples, all_trajs, all_controls = generate_dataset(
+        # samples, all_trajs, all_controls = generate_dataset(
+        #             dynamics=dynamics,
+        #             size=700,
+        #             N=800,
+        #             R=30,
+        #             H=30,  
+        #             u_std=0.1,
+        #             stage= stage,
+        #             device=device,
+        #             prev_stage_models= prev_models,
+        #             return_trajectories=return_trajectories,
+        #             use_grid_sampling = False
+        #         )
+        samples, all_trajs, all_controls = generate_dataset_multi(
                     dynamics=dynamics,
                     size=700,
                     N=800,
