@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import matplotlib.lines as mlines
 
 from utils.model import SingleBVPNet
-from mpc.mpc_rollout import VerticalDroneDynamics 
+from mpc.dynamics import VerticalDroneDynamics 
 # ----------------------------
 # Settings
 # ----------------------------

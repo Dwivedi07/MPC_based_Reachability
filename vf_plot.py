@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import matplotlib.lines as mlines
 
 from utils.model import SingleBVPNet
-from mpc.mpc_rollout import VerticalDroneDynamics 
+from mpc.dynamics import VerticalDroneDynamics 
 from utils.util import compute_value_function_stagewise
 
 
@@ -17,6 +17,7 @@ T_end = 1.2 # Final time
 mT = T - T_end
 K = 12.0  # Fixed gain
 num_stages = 4
+Np = 5
 dynamics = VerticalDroneDynamics(device=device)
 # ----------------------------
 # Grid setup
@@ -32,13 +33,16 @@ T_array = np.full((input_points.shape[0], 1), T)
 x_tensor = torch.tensor(np.hstack([input_points, K_array]), dtype=torch.float32).to(device)  # [N, 3]
 t_tensor = torch.tensor(T_array, dtype=torch.float32).to(device)  # [N, 1]
 
+random_ = True
 #  ----------------------------
 # Load all models from stage_1 to stage_(num_stages-1)
 # ----------------------------
 models = []
 for stage in range(1, num_stages+1): 
-    path = f'model_checkpoints/stage_{stage}_progressive_5_best.pt'
-    # path = f'model_checkpoints_prog/stage_{stage}_progressive_5_best.pt'
+    if random_:
+        path = f'model_checkpoints_random_search/stage_{stage}_progressive_{Np}_best.pt'   # random dataset trained model
+    else:
+        path = f'model_checkpoints_grid_search/stage_{stage}_progressive_{Np}_best.pt'  # grid based search trained model
     model = SingleBVPNet(
         in_features=4,
         out_features=1,
@@ -47,6 +51,9 @@ for stage in range(1, num_stages+1):
     ).to(device)
     model.load_state_dict(torch.load(path, map_location=device))
     model.eval()
+    # print the numebr of parameters in the model
+    num_params = sum(p.numel() for p in model.parameters() if p.requires_grad)/1e6
+    print(f"Stage {stage} model loaded with {num_params:.2f} M parameters.")
     models.append(model)
 
 
@@ -75,6 +82,8 @@ fail_proxy = mlines.Line2D([], [], color='red', linestyle='--', label='Failure s
 plt.legend(handles=[safe_proxy, fail_proxy], loc='upper right')
 
 plt.tight_layout()
-plt.savefig(f'outputs/stage_{num_stages}_prog_random.png')
-# plt.savefig(f'outputs/stage_{num_stages}_prog.png')
+if random_:
+    plt.savefig(f'outputs/stage_{num_stages}_prog_random.png')
+else:
+    plt.savefig(f'outputs/stage_{num_stages}_prog.png')
 plt.show()

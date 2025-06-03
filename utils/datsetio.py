@@ -6,7 +6,7 @@ import torch
 from torch.utils.data import Dataset, DataLoader
 import matplotlib.pyplot as plt
 
-from mpc.mpc_rollout import VerticalDroneDynamics
+from mpc.dynamics import VerticalDroneDynamics
 from utils.util import  generate_dataset
 
 class MPCDataset(Dataset):
@@ -26,8 +26,8 @@ class MPCDataset(Dataset):
 
 # ----------------------------
 def dataset_loading(dynamics, stage=1, prev_models=None, device='cuda'):
-    path = f"dataset/stage{stage}/dataset.pkl"          # grid based dataset
-    # path = f"dataset/stage{stage}/dataset_random.pkl" # random dataset
+    path = f"dataset/stage{stage}/dataset.pkl"            # grid based dataset
+    # path = f"dataset/stage{stage}/dataset_random.pkl"     # random dataset
     os.makedirs(os.path.dirname(path), exist_ok=True)   
     return_trajectories = True
 

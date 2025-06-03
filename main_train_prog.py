@@ -1,7 +1,7 @@
 from utils.datsetio import dataset_loading
 from utils.model import SingleBVPNet
 from utils.util import compute_recursive_value, visualize_dataset
-from mpc.mpc_rollout import VerticalDroneDynamics
+from mpc.dynamics import VerticalDroneDynamics
 
 import torch
 import torch.nn as nn
@@ -10,11 +10,14 @@ from torch.utils.data import Dataset, DataLoader
 import numpy as np
 import math
 import os
+import matplotlib.pyplot as plt
+
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+print(f"Using device: {device}")
 
 from tqdm import tqdm
 import random
 import wandb
-import subprocess
 import time
 
 
@@ -25,28 +28,40 @@ This is the main script that orchestrates the training process.
 3. It uses the trained model for the next stage.
 '''
 
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-print(f"Using device: {device}")
-# save_dir =f"model_checkpoints_prog" 
-save_dir = f"model_checkpoints"  
+
+# save_dir =f"model_checkpoints_grid_search" 
+save_dir =f"model_checkpoints_grid_lrm4" 
+# save_dir = f"model_checkpoints_random_search"  
 os.makedirs(save_dir, exist_ok=True)
 
-MPCdata_visual = True
+MPCdata_visual = False 
 train_from_checkpoint = False
 train_from_begining = True
-use_wandb = True
+use_wandb = False # account expired
 
 NUM_STAGES = 4
-num_epochs = 50
-prev_models = []
-N_p = 5                 # Number of progressive steps per stage
+prev_models = []                
 H = 0.3                 # Total horizon (seconds) to regress over
+'''
+# first iteration:
+    learning_rate: 2e-5,
+    50 epochs each stage
+    Np = 5 
+# second iteration:
+    learning_rate: 2e-4, 
+    50 epochs each stage
+    Np = 7
+'''
+lr = 2e-4  # Learning rate
+N_p = 7   # Number of progressive steps per stage
+num_epochs = 50
 
 dynamics = VerticalDroneDynamics(device=device)
 
 for stage in range(1, NUM_STAGES + 1):
     print(f"\n--- Stage {stage} ---")
-
+    train_loss_list = []
+    val_loss_list = []
     # Load or generate dataset
     # we will feed the previous stage model in data generation process and also for terminal bounary constraint in training
     dataset = dataset_loading(dynamics, stage, prev_models, device=device)
@@ -61,7 +76,7 @@ for stage in range(1, NUM_STAGES + 1):
 
         # Filter dataset to the apt time window
         filtered_dataset = [sample for sample in dataset if t_min <= sample['t'].item() <= t_max]
-        if len(filtered_dataset) < 128:
+        if len(filtered_dataset) < 32:
             print(" Very few samples. Consider adjusting N_p or H.")
             continue
 
@@ -109,7 +124,7 @@ for stage in range(1, NUM_STAGES + 1):
                     project="value-function-reachability-progreesive-random",
                     name=f"Stage-{stage}-prog-stage-{prog_i}",
                     config={
-                        "learning_rate": 2e-5,
+                        "learning_rate": lr,
                         "epochs": num_epochs,
                         "batch_size": train_dataloader.batch_size,
                         "stage": stage,
@@ -118,7 +133,7 @@ for stage in range(1, NUM_STAGES + 1):
                 )
             
             criterion = nn.MSELoss()
-            optimizer = optim.Adam(model.parameters(), lr=2e-5)
+            optimizer = optim.Adam(model.parameters(), lr=lr)
             best_val_loss = float("inf")
             
             for epoch in tqdm(range(num_epochs),  desc=f"[Stage {stage} | Prog {prog_i}]", ncols=80, unit="epoch"):
@@ -201,6 +216,8 @@ for stage in range(1, NUM_STAGES + 1):
                         "val_loss": val_loss,
                         "epoch": epoch
                     })
+                train_loss_list.append(train_loss)
+                val_loss_list.append(val_loss)
                 # if epoch%5 == 0:
                 #     print(f"Epoch [{epoch+1}/{num_epochs}] - Train Loss: {train_loss:.4f}, Val Loss: {val_loss:.4f}")
 
@@ -212,6 +229,29 @@ for stage in range(1, NUM_STAGES + 1):
                 wandb.finish()
 
             print(f"Model for stage {stage}, progressive step {prog_i} trained and saved.")
+
+    if len(train_loss_list) > 0:
+        # plot the loss and save fig
+        plt.figure(figsize=(10, 5))
+        plt.plot(train_loss_list, label='Train Loss', color='blue')
+        plt.xlabel('Epochs')
+        plt.ylabel('Train Loss')
+        plt.title(f'Stage {stage} - Training Loss')
+        plt.legend()
+        plt.grid()
+        plt.savefig(os.path.join(save_dir, f"stage_{stage}_train_loss.png"))
+
+
+        # plot the loss and save fig
+        plt.figure(figsize=(10, 5))
+        plt.plot(val_loss_list, label='Validation Loss', color='orange')
+        plt.xlabel('Epochs')
+        plt.ylabel('Val Loss')
+        plt.title(f'Stage {stage} - Validation Loss')
+        plt.legend()
+        plt.grid()
+        plt.savefig(os.path.join(save_dir, f"stage_{stage}_val_loss.png"))
+
     
     final_model_path = os.path.join(save_dir, f"stage_{stage}_progressive_{N_p}_best.pt")
     model.load_state_dict(torch.load(final_model_path))

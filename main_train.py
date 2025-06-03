@@ -1,7 +1,7 @@
 from utils.datsetio import dataset_loading
 from utils.model import SingleBVPNet
 from utils.util import compute_recursive_value
-from mpc.mpc_rollout import VerticalDroneDynamics
+from mpc.dynamics import VerticalDroneDynamics
 
 import torch
 import torch.nn as nn
