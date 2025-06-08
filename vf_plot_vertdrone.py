@@ -12,7 +12,10 @@ from utils.util import compute_value_function_stagewise
 # Settings
 # ----------------------------
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+# T = 0.3 # Start time
+# T = 0.6 # Start time
 T = 0.0 # Start time
+# T = 1.2 # Start time
 T_end = 1.2 # Final time
 mT = T - T_end
 K = 12.0  # Fixed gain

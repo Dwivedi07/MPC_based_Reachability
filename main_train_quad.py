@@ -29,7 +29,7 @@ This is the main script that orchestrates the training process.
 '''
 dynamics = Quadrotor13D(device=device)
 dyn_name = dynamics.__class__.__name__
-save_dir =f"checkpoints/model_{dyn_name}_checkpoints_random_search" 
+save_dir =f"checkpoints/model_{dyn_name}_checkpoints_random_search_2" 
 os.makedirs(save_dir, exist_ok=True)
 
 MPCdata_visual = False
