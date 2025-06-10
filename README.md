@@ -3,7 +3,7 @@
 This repository contains code for training and evaluating neural network models that approximate value functions for reachability analysis in dynamical systems. We use datasets generated from Model Predictive Control (MPC) simulations for both a 2D vertical drone and a 13D quadrotor.
 
 ## 📁 Repository Structure
-
+```bash
 MPC_based_Reachability/
 │
 ├── checkpoints/ # Trained model checkpoints
@@ -40,7 +40,7 @@ MPC_based_Reachability/
 ├── requirements.txt # Python dependencies
 └── README.md # You're here!
 ---
-
+```
 ## 🛠️ Getting Started
 
 ### 🔧 Environment Setup
@@ -86,6 +86,7 @@ You can also launch the Jupyter Notebook for detailed comparison of ground truth
 jupyter notebook gt_pred.ipynb
 ```
 ## 📂 Dataset Structure
+```bash
 dataset/
 ├── VerticalDroneDynamics/
 │   └── stage1/
@@ -95,8 +96,9 @@ dataset/
 │   └── ...
 └── Quadrotor13D/
     └── stage{1-4}/
-        └── dataset_{grid,random,multidim}/
+        └── dataset_{grid,random,multidim}
+```
 Each dataset contains (t, x, V̂(t, x)) tuples sampled using MPC rollouts.
-# Models
+## Models
 The neural network architectures for value function approximation are defined in utils/model.py. They support progressive training strategies and decoupled dynamics representations.
 
