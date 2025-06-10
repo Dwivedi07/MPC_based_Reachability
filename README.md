@@ -1,4 +1,4 @@
-# MPC-Based Reachability with Neural Value Function Approximation
+# MPC-Based Reachability
 
 This repository contains code for training and evaluating neural network models that approximate value functions for reachability analysis in dynamical systems. We use datasets generated from Model Predictive Control (MPC) simulations for both a 2D vertical drone and a 13D quadrotor.
 
