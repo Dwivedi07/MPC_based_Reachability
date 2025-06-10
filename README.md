@@ -11,9 +11,11 @@ MPC_based_Reachability/
 │
 ├── dataset/ # Trajectory datasets from MPC rollouts
 │ ├── VerticalDroneDynamics/
+|    └── stage{1,2,3,4}/
+│         └── dataset{grid, random, multidim}/
 │ └── Quadrotor13D/
-│ └── stage{1,2,3,4}/
-│ └── dataset{grid, random, multidim}/
+│     └── stage{1,2,3,4}/
+│         └── dataset{grid, random, multidim}/
 │
 ├── mpc/
 │ └── dynamics.py # Dynamics for VerticalDrone and Quadrotor13D
@@ -32,13 +34,10 @@ MPC_based_Reachability/
 ├── main_train_prog.py # Progressive horizon training
 ├── main_train_quad.py # Quadrotor-specific training script
 │
-├── vf_gif.py # Value function animation (gif)
 ├── vf_plot_quad.py # Value function plotting for Quadrotor
 ├── vf_plot_vertdrone.py # Value function plotting for Vertical Drone
 │
-├── finalreport/ # Final report or related documentation
 ├── requirements.txt # Python dependencies
-└── README.md # You're here!
 ---
 ```
 ## 🛠️ Getting Started
