@@ -36,8 +36,9 @@ Drone
 dynamics = VerticalDroneDynamics(device=device)
 dyn_name = dynamics.__class__.__name__
 # save_dir =f"checkpoints/model_{dyn_name}_checkpoints_grid_search"   # grid search
-save_dir =f"checkpoints/model_{dyn_name}_checkpoints_random_search"   # random search
-save_dir =f"checkpoints/model_{dyn_name}_checkpoints_grid_lrm4" 
+# save_dir =f"checkpoints/model_{dyn_name}_checkpoints_random_search"   # random search
+# save_dir =f"checkpoints/model_{dyn_name}_checkpoints_grid_lrm4" 
+save_dir =f"checkpoints/model_{dyn_name}_checkpoints_grid_third_iter" 
 os.makedirs(save_dir, exist_ok=True)
 
 MPCdata_visual = False 
@@ -52,15 +53,25 @@ prev_models = []
     learning_rate: 2e-5,
     50 epochs each stage
     Np = 5 
+    hidden_features=512,
+    num_hidden_layers=3
 # second iteration:
     learning_rate: 2e-4, 
     50 epochs each stage
     Np = 7
+    hidden_features=512,
+    num_hidden_layers=3
+# third iteration:
+    learning_rate: 2e-5, 
+    50 epochs each stage
+    Np = 5
+    hidden_features=256,
+    num_hidden_layers=4
 '''
 
 H = dynamics.horizon        # Total horizon (seconds) to regress over
-lr = 2e-4  # Learning rate
-N_p = 7   # Number of progressive steps per stage
+lr = 2e-5  # Learning rate
+N_p = 5   # Number of progressive steps per stage
 num_epochs = 50
 
 for stage in range(1, NUM_STAGES + 1):
@@ -97,8 +108,8 @@ for stage in range(1, NUM_STAGES + 1):
         '''
         model = SingleBVPNet(out_features=1,  # V(state, t)
                             in_features=4,  # z, vz, k, t
-                            hidden_features=512, # 256 first set of training I did
-                            num_hidden_layers=3).to(device)
+                            hidden_features=256, # hidden dimension
+                            num_hidden_layers=4).to(device)
         
         
         '''

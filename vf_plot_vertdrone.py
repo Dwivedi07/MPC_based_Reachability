@@ -5,7 +5,7 @@ import matplotlib.lines as mlines
 
 from utils.model import SingleBVPNet
 from mpc.dynamics import VerticalDroneDynamics 
-from utils.util import compute_value_function_stagewise
+from utils.util import compute_value_function_stagewise, compute_terminal_value
 
 
 # ----------------------------
@@ -20,7 +20,7 @@ T_end = 1.2 # Final time
 mT = T - T_end
 K = 12.0  # Fixed gain
 num_stages = 4
-Np = 7
+Np = 5 # 7, 5
 dynamics = VerticalDroneDynamics(device=device)
 dyn_name = dynamics.__class__.__name__ 
 # ----------------------------
@@ -37,35 +37,61 @@ T_array = np.full((input_points.shape[0], 1), T)
 x_tensor = torch.tensor(np.hstack([input_points, K_array]), dtype=torch.float32).to(device)  # [N, 3]
 t_tensor = torch.tensor(T_array, dtype=torch.float32).to(device)  # [N, 1]
 
-random_ = False
+random_ = True
+method1 = True
 #  ----------------------------
 # Load all models from stage_1 to stage_(num_stages-1)
 # ----------------------------
 models = []
-for stage in range(1, num_stages+1): 
+if method1:
+    for stage in range(1, num_stages+1): 
+        if random_:
+            path = f'checkpoints/model_{dyn_name}_checkpoints_random_search/stage_{stage}_progressive_{Np}_best.pt'   # random dataset trained model
+        else:
+            # change the path as per different checkpoints
+            # path = f'checkpoints/model_{dyn_name}_checkpoints_grid_lrm4/stage_{stage}_progressive_{Np}_best.pt'  # grid based search trained model
+            # path = f'checkpoints/model_{dyn_name}_checkpoints_grid_search/stage_{stage}_progressive_{Np}_best.pt'  # grid based search trained model
+            path = f'checkpoints/model_{dyn_name}_checkpoints_grid_third_iter/stage_{stage}_progressive_{Np}_best.pt'  # grid based search trained model
+        model = SingleBVPNet(
+            in_features=dynamics.input_dim,
+            out_features=1,
+            hidden_features=512,
+            num_hidden_layers=3
+        ).to(device)
+        model.load_state_dict(torch.load(path, map_location=device))
+        model.eval()
+        # print the numebr of parameters in the model
+        num_params = sum(p.numel() for p in model.parameters() if p.requires_grad)/1e6
+        print(f"Stage {stage} model loaded with {num_params:.2f} M parameters.")
+        models.append(model)
+
+
+    with torch.no_grad():
+        V_hat = compute_value_function_stagewise(x_tensor, t_tensor, dynamics, models)
+        V_hat = V_hat.cpu().numpy().reshape(Z.shape)
+
+else: # decoupled method
+    # Load the model for the last stage
     if random_:
-        path = f'checkpoints/model_{dyn_name}_checkpoints_random_search/stage_{stage}_progressive_{Np}_best.pt'   # random dataset trained model
+        path = f'checkpoints/model_{dyn_name}_checkpoints_grid_search_decopled/stage_{num_stages}_progressive_{Np}_best.pt'
     else:
-        # change the path as per different checkpoints
-        path = f'checkpoints/model_{dyn_name}_checkpoints_grid_lrm4/stage_{stage}_progressive_{Np}_best.pt'  # grid based search trained model
-        # path = f'checkpoints/model_{dyn_name}_checkpoints_grid_search/stage_{stage}_progressive_{Np}_best.pt'  # grid based search trained model
-    model = SingleBVPNet(
-        in_features=4,
-        out_features=1,
-        hidden_features=512,
-        num_hidden_layers=3
-    ).to(device)
+        path = f'checkpoints/model_{dyn_name}_checkpoints_grid_search_decopled/stage_{num_stages}_progressive_{Np}_best.pt'
+    
+    model = SingleBVPNet(out_features=1,  # V(state, t)
+                            in_features=dynamics.input_dim,  # z, vz, k, t
+                            hidden_features=512, # hidden dimension
+                            num_hidden_layers=3).to(device)
     model.load_state_dict(torch.load(path, map_location=device))
     model.eval()
     # print the numebr of parameters in the model
     num_params = sum(p.numel() for p in model.parameters() if p.requires_grad)/1e6
-    print(f"Stage {stage} model loaded with {num_params:.2f} M parameters.")
+    print(f"Stage {num_stages} model loaded with {num_params:.2f} M parameters.")
     models.append(model)
 
+    with torch.no_grad():
+        V_hat = compute_terminal_value(x_tensor, t_tensor, dynamics, models)
+        V_hat = V_hat.cpu().numpy().reshape(Z.shape)
 
-with torch.no_grad():
-    V_hat = compute_value_function_stagewise(x_tensor, t_tensor, dynamics, models)
-    V_hat = V_hat.cpu().numpy().reshape(Z.shape)
 
 # Plot
 plt.figure(figsize=(8, 6))

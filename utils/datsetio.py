@@ -7,7 +7,7 @@ from torch.utils.data import Dataset, DataLoader
 import matplotlib.pyplot as plt
 
 from mpc.dynamics import VerticalDroneDynamics
-from utils.util import  generate_dataset, generate_dataset_multi
+from utils.util import  generate_dataset, generate_dataset_multi, generate_dataset_multi_decoupled
 
 class MPCDataset(Dataset):
     def __init__(self, samples):
@@ -26,8 +26,14 @@ class MPCDataset(Dataset):
 
 # ----------------------------
 def dataset_loading(dynamics, dyn_name, stage=1, prev_models=None, device='cuda'):
+    # 2D Drone
     # path = f"dataset/{dyn_name}/stage{stage}/dataset.pkl"            # grid based dataset
-    path = f"dataset/{dyn_name}/stage{stage}/dataset_random_s2000.pkl"     # random dataset
+    path = f"dataset/{dyn_name}/stage{stage}/dataset_multidim_control.pkl"  # grid based dataset: expermineting if multi dim control works for 2d drone
+    # path = f"dataset/{dyn_name}/stage{stage}/dataset_random.pkl"     # random dataset
+    
+    ## Quadrotor 13D
+    # path = f"dataset/{dyn_name}/stage{stage}/dataset_random_s2000.pkl"     # random dataset
+    # path = f"dataset/{dyn_name}/stage{stage}/dataset_random.pkl"     # random dataset
     os.makedirs(os.path.dirname(path), exist_ok=True)   
     return_trajectories = True
 
@@ -38,7 +44,7 @@ def dataset_loading(dynamics, dyn_name, stage=1, prev_models=None, device='cuda'
     else:
         print(f"Generating dataset from stage {stage} and saving to: {path}")
         '''
-        IN paper H_R = 0.2 sec with dt = 0.02 sec so each rollout 10 steps
+        In paper H_R = 0.2 sec with dt = 0.02 sec so each rollout 10 steps
         safe set converges in 1.2 second
         we will use 0.3 as horizon length for each stage with H = 30 max steps with dt 0.01
         '''
@@ -55,9 +61,11 @@ def dataset_loading(dynamics, dyn_name, stage=1, prev_models=None, device='cuda'
         #             return_trajectories=return_trajectories,
         #             use_grid_sampling = False
         #         )
-        samples, all_trajs, all_controls = generate_dataset_multi(
+        
+        # decoupled data collection strategy
+        samples, all_trajs, all_controls = generate_dataset_multi_decoupled(
                     dynamics=dynamics,
-                    size=2000, #700
+                    size=700,
                     N=800,
                     R=30,
                     H=30,  
@@ -66,9 +74,23 @@ def dataset_loading(dynamics, dyn_name, stage=1, prev_models=None, device='cuda'
                     device=device,
                     prev_stage_models= prev_models,
                     return_trajectories=return_trajectories,
-                    use_grid_sampling = False
+                    use_grid_sampling = True
                 )
 
+        ## this is for the quadrotor with multi-dimensional control
+        # samples, all_trajs, all_controls = generate_dataset_multi(
+        #             dynamics=dynamics,
+        #             size=2000, #700
+        #             N=800,
+        #             R=30,
+        #             H=30,  
+        #             u_std=0.1,
+        #             stage= stage,
+        #             device=device,
+        #             prev_stage_models= prev_models,
+        #             return_trajectories=return_trajectories,
+        #             use_grid_sampling = False
+        #         )
         with open(path, 'wb') as f:
             pickle.dump(samples, f)
 

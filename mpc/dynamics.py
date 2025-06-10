@@ -30,32 +30,72 @@ class VerticalDroneDynamics:
         self.control_range_ =torch.tensor([[-self.input_magnitude_max, self.input_magnitude_max]]).to(device)
         self.nominal_control_init = torch.ones(1, device = device)*self.g/self.input_multiplier
 
-
-    def sample_state(self, n, size, batch_size=1, use_grid_sampling= False):
+    def sample_state(self, n, size, batch_size=1, use_grid_sampling=False):
         '''
         Args:
-            n: nth smaple to return
-            size: the number of total samples to generate
+            n: nth sample to return
+            size: total number of samples to generate
             batch_size: batch 
-            use_grod_sampling: if doing grid based search or normal
+            use_grid_sampling: if doing grid based sampling or uniform random
         Returns:
-            Tensor of shape (batch_size, 13)
+            Tensor of shape (batch_size, 3)
         '''
         if use_grid_sampling:
             grid_dim = int(size ** (1 / 3)) + 1
-            z_vals = torch.linspace(self.state_range_[1], steps=grid_dim)
-            vz_vals = torch.linspace(self.state_range_[0], steps=grid_dim)
-            K_vals = torch.linspace(self.K_range, steps=grid_dim)
 
+            # Unpack min/max ranges
+            vz_min, vz_max = self.state_range_[0]
+            z_min, z_max   = self.state_range_[1]
+            K_min, K_max   = self.K_range
+
+            # Grid sampling for each dimension
+            z_vals  = torch.linspace(z_min, z_max, steps=grid_dim)
+            vz_vals = torch.linspace(vz_min, vz_max, steps=grid_dim)
+            K_vals  = torch.linspace(K_min, K_max, steps=grid_dim)
+
+            # Create grid and reshape
             zz, vv, kk = torch.meshgrid(z_vals, vz_vals, K_vals, indexing='ij')
             state_grid = torch.stack([zz.reshape(-1), vv.reshape(-1), kk.reshape(-1)], dim=1)
             state_grid = state_grid[:size].to(self.device)
-            return state_grid[n:n+1]  # [B=1, 3]
+            return state_grid[n:n+1]  # shape: [1, 3]
+
         else:
-            z = torch.empty(batch_size, device=self.device).uniform_(*self.state_range_[1])
-            vz = torch.empty(batch_size, device=self.device).uniform_(*self.state_range_[0])
-            K = torch.empty(batch_size, device=self.device).uniform_(*self.K_range)
-            return torch.stack([z, vz, K], dim=-1)  # shape: [B=1, 3]
+            vz_min, vz_max = self.state_range_[0]
+            z_min, z_max   = self.state_range_[1]
+            K_min, K_max   = self.K_range
+
+            # Random uniform sampling
+            z  = torch.empty(batch_size, device=self.device).uniform_(z_min, z_max)
+            vz = torch.empty(batch_size, device=self.device).uniform_(vz_min, vz_max)
+            K  = torch.empty(batch_size, device=self.device).uniform_(K_min, K_max)
+
+            return torch.stack([z, vz, K], dim=-1)  # shape: [B, 3]
+
+    # def sample_state(self, n, size, batch_size=1, use_grid_sampling= False):
+    #     '''
+    #     Args:
+    #         n: nth smaple to return
+    #         size: the number of total samples to generate
+    #         batch_size: batch 
+    #         use_grod_sampling: if doing grid based search or normal
+    #     Returns:
+    #         Tensor of shape (batch_size, 13)
+    #     '''
+    #     if use_grid_sampling:
+    #         grid_dim = int(size ** (1 / 3)) + 1
+    #         z_vals = torch.linspace(self.state_range_[1], steps=grid_dim)
+    #         vz_vals = torch.linspace(self.state_range_[0], steps=grid_dim)
+    #         K_vals = torch.linspace(self.K_range, steps=grid_dim)
+
+    #         zz, vv, kk = torch.meshgrid(z_vals, vz_vals, K_vals, indexing='ij')
+    #         state_grid = torch.stack([zz.reshape(-1), vv.reshape(-1), kk.reshape(-1)], dim=1)
+    #         state_grid = state_grid[:size].to(self.device)
+    #         return state_grid[n:n+1]  # [B=1, 3]
+    #     else:
+    #         z = torch.empty(batch_size, device=self.device).uniform_(*self.state_range_[1])
+    #         vz = torch.empty(batch_size, device=self.device).uniform_(*self.state_range_[0])
+    #         K = torch.empty(batch_size, device=self.device).uniform_(*self.K_range)
+    #         return torch.stack([z, vz, K], dim=-1)  # shape: [B=1, 3]
 
     def step(self, state, control):
         """
